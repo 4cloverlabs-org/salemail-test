@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.cc-auth {
+  --ac: #4f46e5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: #f7f7fb;
+  font-family: Geist, "Geist Placeholder", sans-serif;
+  color: #16161d;
+}
+.cc-auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border: 1px solid #ececf0;
+  border-radius: 18px;
+  padding: 34px 32px;
+}
+.cc-auth-brand {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-weight: 700; font-size: 1.05rem; color: #16161d; margin-bottom: 22px;
+}
+.cc-auth-mark {
+  width: 28px; height: 28px; border-radius: 8px; background: var(--ac);
+  display: flex; align-items: center; justify-content: center;
+}
+.cc-auth-mark span { width: 10px; height: 10px; border-radius: 50%; background: #fff; }
+.cc-auth-card h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+.cc-auth-sub { color: #6a6a78; font-size: 0.9rem; margin: 6px 0 22px; }
+
+.cc-auth-card form label { display: block; margin-bottom: 14px; }
+.cc-auth-card form label span { display: block; font-size: 0.8rem; font-weight: 600; color: #44444f; margin-bottom: 6px; }
+.cc-auth-card input {
+  width: 100%; padding: 11px 13px; border: 1px solid #e1e1e8; border-radius: 10px;
+  font-size: 0.92rem; font-family: inherit; color: #16161d; outline: none; background: #fff;
+  transition: border-color 0.15s ease;
+}
+.cc-auth-card input:focus { border-color: var(--ac); }
+
+.cc-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 18px; font-size: 0.92rem; font-weight: 600; border-radius: 10px;
+  border: 1px solid transparent; cursor: pointer; transition: opacity 0.15s ease, transform 0.15s ease;
+  font-family: inherit;
+}
+.cc-btn-primary { background: var(--ac); color: #fff; }
+.cc-btn-primary:hover { transform: translateY(-1px); }
+.cc-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.cc-btn-block { width: 100%; margin-top: 4px; }
+
+.cc-auth-perks { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-direction: column; gap: 9px; }
+.cc-auth-perks li { display: flex; align-items: center; gap: 8px; font-size: 0.84rem; color: #6a6a78; }
+.cc-auth-perks svg { color: var(--ac); }
+
+.cc-auth-alt { margin-top: 22px; font-size: 0.86rem; color: #6a6a78; text-align: center; }
+.cc-auth-alt a { color: var(--ac); font-weight: 600; }
+.cc-auth-alt a:hover { text-decoration: underline; }
+
+.cc-auth-error {
+  background: #fdecec; border: 1px solid #f6c9c9; color: #b42318;
+  font-size: 0.84rem; padding: 11px 13px; border-radius: 10px; margin-bottom: 16px;
+}
+.cc-auth-notice {
+  background: #eef0fe; border: 1px solid #d5d3fb; color: #3730a3;
+  font-size: 0.82rem; line-height: 1.5; padding: 12px 13px; border-radius: 10px; margin-bottom: 16px;
+}
+.cc-auth-notice code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 4px; font-size: 0.92em; }
+
+@keyframes crmSpin { to { transform: rotate(360deg); } }
