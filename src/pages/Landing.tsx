@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Check, Zap, Target, Slack, Github, Twitter, Linkedin, CheckCircle2, FileText, GitMerge, BarChart3, Sparkles, Wand2, AlignLeft, Maximize2, ArrowRightLeft, ListChecks, Database, Aperture, Layout, Hexagon, Disc } from 'lucide-react';
+import { Check, Zap, Target, Slack, Github, Twitter, Linkedin, CheckCircle2, FileText, GitMerge, BarChart3, Sparkles, Wand2, AlignLeft, ListChecks, Database, Aperture, Layout, Hexagon, Disc } from 'lucide-react';
 import './Landing.css';
 
 const FadeUp = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
