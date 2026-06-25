@@ -456,7 +456,7 @@
    ================================================================= */
 .lexaro-system-section {
   padding: 120px 0;
-  background: #fff;
+  background: #fafafa;
   text-align: center;
 }
 .lexaro-system-title {
@@ -469,12 +469,14 @@
 }
 
 .lexaro-system-box {
-  background: #f9f9fa;
-  border-radius: 4px; /* Based on image it has very slight rounding or none */
+  background: #ffffff;
+  border-radius: 12px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   text-align: left;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
 }
 .lexaro-system-visual-container {
   padding: 40px;
