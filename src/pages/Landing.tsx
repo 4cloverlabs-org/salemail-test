@@ -330,7 +330,6 @@ export default function Landing() {
                 <p>Let prospects book meetings directly with calendar sync.</p>
               </div>
             </div>
-            </div>
           </FadeUp>
           </div>
         </div>
