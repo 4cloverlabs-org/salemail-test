@@ -43,17 +43,16 @@ export const AICampaignStudio: React.FC<AICampaignStudioProps> = ({ onApplySeque
   };
 
   return (
-    <div className="camp-ai-studio">
-      <div className="camp-ai-banner">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, fontSize: '0.95rem' }}>
-          <Sparkles size={18} /> AI CAMPAIGN STUDIO
+    <div className="camp-ai-studio" style={{ background: '#fff', borderRadius: '12px', padding: '24px', border: '1px solid rgba(0,0,0,0.06)', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -1px rgba(0,0,0,0.02)', position: 'sticky', top: '24px' }}>
+      <div className="camp-ai-banner" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, letterSpacing: '-0.02em', fontSize: '1rem', color: '#0f172a' }}>
+          <Sparkles size={18} style={{ color: '#4f46e5' }} /> AI CAMPAIGN STUDIO
         </div>
-        <span className="camp-ai-tag" style={{ whiteSpace: 'nowrap' }}>⚡ Groq AI</span>
       </div>
 
-      <div style={{ marginBottom: '18px' }}>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
-          <Globe size={15} style={{ color: '#4f46e5' }} /> Client Website URL(s)
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '10px' }}>
+          <Globe size={15} style={{ color: '#6366f1' }} /> Client Website URL(s)
         </label>
         <input
           type="text"
@@ -61,20 +60,20 @@ export const AICampaignStudio: React.FC<AICampaignStudioProps> = ({ onApplySeque
           placeholder="e.g. https://stripe.com or https://linear.app"
           value={urlInput}
           onChange={(e) => setUrlInput(e.target.value)}
-          style={{ width: '100%', background: '#fff' }}
+          style={{ width: '100%', background: '#fff', border: '1px solid #e2e8f0', padding: '12px', fontSize: '0.9rem' }}
         />
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
-          <FileText size={15} style={{ color: '#4f46e5' }} /> OR Client Description & Pitch
+      <div style={{ marginBottom: '24px' }}>
+        <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '10px' }}>
+          <FileText size={15} style={{ color: '#6366f1' }} /> OR Client Description & Pitch
         </label>
         <textarea
           className="camp-textarea"
           placeholder="e.g. We are an AI software agency helping B2B healthcare startups automate their patient onboarding workflows..."
           value={descInput}
           onChange={(e) => setDescInput(e.target.value)}
-          style={{ minHeight: '110px' }}
+          style={{ minHeight: '120px', background: '#fff', border: '1px solid #e2e8f0', padding: '12px', fontSize: '0.9rem' }}
         />
       </div>
 
@@ -82,7 +81,7 @@ export const AICampaignStudio: React.FC<AICampaignStudioProps> = ({ onApplySeque
         onClick={handleGenerate}
         disabled={isScraping || isGenerating || (!urlInput.trim() && !descInput.trim())}
         className="camp-btn camp-btn-primary"
-        style={{ width: '100%', padding: '12px', fontSize: '0.95rem' }}
+        style={{ width: '100%', padding: '14px', fontSize: '0.95rem', fontWeight: 700, background: '#4f46e5', borderRadius: '8px' }}
       >
         {isScraping ? (
           <>
@@ -99,6 +98,15 @@ export const AICampaignStudio: React.FC<AICampaignStudioProps> = ({ onApplySeque
         )}
       </button>
 
+      <div style={{ marginTop: '24px', background: '#fef9c3', border: '1px solid #fef08a', padding: '16px', borderRadius: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 700, color: '#854d0e', marginBottom: '8px', fontSize: '0.85rem' }}>
+          <Lightbulb size={15} /> Pro Tip
+        </div>
+        <p style={{ margin: 0, fontSize: '0.8rem', color: '#713f12', lineHeight: 1.5 }}>
+          When you press generate, the AI scrapes live websites, analyzes tone, and generates the entire 4-step sequence (Initial Email + delays + 3 follow-ups) directly into your workflow on the left!
+        </p>
+      </div>
+      
       <AnimatePresence>
         {extractedMeta && (
           <motion.div
@@ -119,13 +127,6 @@ export const AICampaignStudio: React.FC<AICampaignStudioProps> = ({ onApplySeque
           </motion.div>
         )}
       </AnimatePresence>
-
-      <div className="camp-ai-tip">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 700, marginBottom: '4px' }}>
-          <Lightbulb size={15} /> Pro Tip
-        </div>
-        When you press generate, the AI scrapes live websites, analyzes tone, and generates the entire 4-step sequence (Initial Email + delays + 3 follow-ups) directly into your workflow on the left!
-      </div>
     </div>
   );
 };

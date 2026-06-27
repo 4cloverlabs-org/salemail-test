@@ -34,7 +34,7 @@ export const CampaignSettings: React.FC = () => {
 
       <div className="camp-flow-col" style={{ gap: '20px' }}>
         {/* Direct Gmail API Engine */}
-        <div className="camp-block-card" style={{ border: '2px solid #818cf8', background: 'linear-gradient(to bottom right, #ffffff, #f8fafc)' }}>
+        <div className="camp-block-card" style={{ border: '2px solid #818cf8', background: '#f8fafc' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
             <h4 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', color: '#4f46e5' }}>
               ⚡ Direct Gmail API Engine (Live Connected Mailbox)

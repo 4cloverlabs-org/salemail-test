@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Eye, Trash2, CheckCircle2, AlertCircle, Link as LinkIcon, Bold, Italic } from 'lucide-react';
+import { Send, Eye, Trash2, CheckCircle2, AlertCircle, Link as LinkIcon, Bold, Italic, Mail, MoreVertical } from 'lucide-react';
 import { type CampaignStep, type EmailStatus, campaignEngine } from './campaignEngine';
 
 interface EmailBlockProps {
@@ -94,69 +94,72 @@ export const EmailBlock: React.FC<EmailBlockProps> = ({
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
       className="camp-block-card"
+      style={{ marginLeft: stepIndex === 0 ? '0' : '0' }}
     >
-      <div className="camp-block-head">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span className="camp-step-number">{stepIndex + 1}</span>
+      <div className="camp-block-head" style={{ padding: '16px 20px', background: '#fff', borderBottom: '1px solid rgba(0,0,0,0.04)', display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '32px', height: '32px', background: stepIndex === 0 ? '#4f46e5' : '#f8fafc', color: stepIndex === 0 ? '#fff' : '#4f46e5', borderRadius: '8px' }}>
+            {stepIndex === 0 ? <Mail size={16} /> : <Send size={16} />}
+          </div>
           <div>
-            <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>{step.title}</h4>
-            <span style={{ fontSize: '0.78rem', color: 'var(--camp-text-muted)' }}>
+            <h4 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: '#1e293b' }}>{stepIndex === 0 ? 'Initial Email' : `Follow-up ${stepIndex}`}</h4>
+            <span style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 500 }}>
               {stepIndex === 0 ? 'Sent immediately upon starting' : 'Automated follow-up trigger'}
             </span>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span className={`camp-status-badge ${meta.className}`}>
-            {isLivePulse && <span className="camp-pulse-dot" />}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <span className={`camp-status-badge ${meta.className}`} style={{ padding: '4px 12px', borderRadius: '100px', fontWeight: 700, letterSpacing: '0.02em', border: stepIndex === 0 ? 'none' : 'none' }}>
+            {isLivePulse && <span className="camp-pulse-dot" style={{ width: 6, height: 6 }} />}
             {meta.label}
           </span>
           {stepIndex > 0 && (
             <button
               onClick={onDelete}
               className="camp-btn camp-btn-ghost"
-              style={{ padding: '6px', color: '#ef4444' }}
+              style={{ padding: '6px', color: '#64748b', border: '1px solid rgba(0,0,0,0.08)', background: '#fff' }}
               title="Remove step"
             >
-              <Trash2 size={15} />
+              <MoreVertical size={16} />
             </button>
           )}
         </div>
       </div>
 
-      <div className="camp-form-row">
-        <span className="camp-form-label">To:</span>
-        <input
-          type="text"
-          className="camp-input"
-          value={recipientEmail || ''}
-          placeholder="client@company.com"
-          onChange={(e) => onUpdateRecipient ? onUpdateRecipient(e.target.value) : null}
-          style={{ background: '#ffffff', color: 'var(--camp-text)' }}
-          title="Target recipient email address"
-        />
-      </div>
-
-      <div className="camp-form-row">
-        <span className="camp-form-label">From:</span>
-        <div className="camp-input" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f8fafc' }}>
-          <span style={{ fontWeight: 500, color: '#334155' }}>{userEmail || 'kushal@salemail.io'}</span>
-          <span style={{ fontSize: '0.75rem', background: '#dcfce7', color: '#166534', padding: '2px 8px', borderRadius: '4px', fontWeight: 600 }}>
-            Connected Mailbox ✓
-          </span>
+      <div className="camp-block-body">
+        <div className="camp-form-row">
+          <span className="camp-form-label">To:</span>
+          <input
+            type="text"
+            className="camp-email-input"
+            value={recipientEmail || ''}
+            placeholder="client@company.com"
+            onChange={(e) => onUpdateRecipient ? onUpdateRecipient(e.target.value) : null}
+            title="Target recipient email address"
+          />
         </div>
-      </div>
 
-      <div className="camp-form-row">
-        <span className="camp-form-label">Subject:</span>
-        <input
-          type="text"
-          className="camp-input"
-          placeholder="Enter subject line or let AI auto-fill..."
-          value={step.subject || ''}
-          onChange={(e) => onUpdate({ ...step, subject: e.target.value })}
-        />
-      </div>
+        <div className="camp-form-row">
+          <span className="camp-form-label">From:</span>
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontWeight: 500, color: '#334155', fontSize: '0.9rem' }}>{userEmail || 'kushal@salemail.io'}</span>
+            <span style={{ fontSize: '0.75rem', background: '#dcfce7', color: '#166534', padding: '2px 8px', borderRadius: '4px', fontWeight: 600 }}>
+              Connected Mailbox ✓
+            </span>
+          </div>
+        </div>
+
+        <div className="camp-form-row">
+          <span className="camp-form-label">Subject:</span>
+          <input
+            type="text"
+            className="camp-email-input"
+            placeholder="Enter subject line or let AI auto-fill..."
+            value={step.subject || ''}
+            onChange={(e) => onUpdate({ ...step, subject: e.target.value })}
+          />
+        </div>
 
       <div style={{ marginTop: '14px' }}>
         <div className="camp-rte-toolbar">
@@ -254,6 +257,7 @@ export const EmailBlock: React.FC<EmailBlockProps> = ({
             </span>
           )}
         </button>
+      </div>
       </div>
     </motion.div>
   );

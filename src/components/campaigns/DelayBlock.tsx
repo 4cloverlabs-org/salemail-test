@@ -35,16 +35,17 @@ export const DelayBlock: React.FC<DelayBlockProps> = ({
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.2 }}
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      style={{ position: 'relative', margin: '32px 0', paddingLeft: '0' }}
     >
-      <div style={{ color: '#cbd5e1', margin: '2px 0' }}>
-        <ArrowDown size={18} />
+      <div className="camp-timeline-node">
+        <div style={{ width: '8px', height: '8px', background: '#4f46e5', borderRadius: '50%' }} />
+        {/* Local vertical line going down to the next node */}
+        <div style={{ position: 'absolute', top: '24px', bottom: '-150px', left: '9px', width: '2px', background: '#e2e8f0', zIndex: -1 }} />
       </div>
 
-      <div className="camp-delay-block">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Clock size={16} style={{ color: 'var(--camp-accent)' }} />
-          <span style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--camp-text)' }}>Wait</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', background: '#fff', padding: '10px 0', width: 'fit-content' }}>
+        <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#1e293b' }}>Wait for</span>
+        <div style={{ display: 'flex', gap: '8px' }}>
           <input
             type="number"
             min={1}
@@ -53,12 +54,16 @@ export const DelayBlock: React.FC<DelayBlockProps> = ({
             onChange={(e) => onUpdate({ ...step, delayValue: Math.max(1, parseInt(e.target.value) || 1) })}
             disabled={isWaiting}
             style={{
-              width: '56px',
-              padding: '4px 8px',
-              border: '1px solid var(--camp-border)',
-              borderRadius: '6px',
+              width: '46px',
+              padding: '6px 12px',
+              border: '1px solid #e2e8f0',
+              borderRadius: '8px',
               textAlign: 'center',
-              fontWeight: 600,
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              background: '#ffffff',
+              color: '#0f172a',
+              outline: 'none'
             }}
           />
           <select
@@ -66,11 +71,15 @@ export const DelayBlock: React.FC<DelayBlockProps> = ({
             onChange={(e) => onUpdate({ ...step, delayUnit: e.target.value as any })}
             disabled={isWaiting}
             style={{
-              padding: '4px 8px',
-              border: '1px solid var(--camp-border)',
-              borderRadius: '6px',
-              background: '#fff',
-              fontWeight: 500,
+              padding: '6px 12px',
+              border: '1px solid #e2e8f0',
+              borderRadius: '8px',
+              background: '#ffffff',
+              fontSize: '0.85rem',
+              fontWeight: 700,
+              color: '#0f172a',
+              outline: 'none',
+              cursor: 'pointer'
             }}
           >
             <option value="minutes">Minutes</option>
@@ -81,9 +90,11 @@ export const DelayBlock: React.FC<DelayBlockProps> = ({
         </div>
 
         {isWaiting && (
-          <div style={{ marginLeft: '16px' }}>
-            <span className="camp-countdown-pill">
-              <span className="camp-pulse-dot" style={{ background: '#38bdf8' }} />
+          <div style={{ marginLeft: '12px' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#ffffff', border: '1px solid #e2e8f0', padding: '4px 12px 4px 6px', borderRadius: '100px', fontSize: '0.8rem', fontWeight: 600, color: '#334155' }}>
+              <div style={{ background: '#4f46e5', width: '20px', height: '20px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+                <Clock size={12} strokeWidth={2.5} />
+              </div>
               Waiting: {formatCountdown(step.remainingSeconds || 0)}
             </span>
           </div>
@@ -97,10 +108,6 @@ export const DelayBlock: React.FC<DelayBlockProps> = ({
         >
           <Trash2 size={14} />
         </button>
-      </div>
-
-      <div style={{ color: '#cbd5e1', margin: '2px 0' }}>
-        <ArrowDown size={18} />
       </div>
     </motion.div>
   );

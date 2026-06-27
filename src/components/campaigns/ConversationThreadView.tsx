@@ -109,7 +109,7 @@ export const ConversationThreadView: React.FC = () => {
             </div>
 
             {/* AI Summary Banner */}
-            <div style={{ background: 'linear-gradient(135deg, #f8fafc, #eef0fe)', padding: '12px 20px', borderBottom: '1px solid #e0e7ff', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div style={{ background: '#f8fafc', padding: '12px 20px', borderBottom: '1px solid #e0e7ff', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Sparkles size={16} style={{ color: '#4f46e5', flexShrink: 0 }} />
               <div style={{ fontSize: '0.82rem', color: '#3730a3', lineHeight: 1.4 }}>
                 <strong>AI Conversation Summary:</strong> {activeThread.summary}

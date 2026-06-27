@@ -544,21 +544,23 @@ export default function CrmDashboard() {
             </div>
           </div>
 
-          <div className="crm-content">
-            <div className="crm-page-head">
-              <div>
-                <h1>{view === 'dashboard' ? `Welcome back, ${firstName}` : PAGE_META[view].title}</h1>
-                <p>{PAGE_META[view].sub}</p>
-              </div>
-              {view === 'dashboard' && (
-                <div style={{ display: 'flex', gap: 10 }}>
-                  <button className="crm-btn crm-btn-ghost" onClick={exportContactsCSV} disabled={contacts.length === 0}><FileText size={15} /> Export</button>
-                  <button className="crm-btn crm-btn-primary" onClick={() => { setCForm(blankContact); setContactErr(''); setShowContactForm(true); }}><Plus size={15} /> Add lead</button>
+          <div className="crm-content" style={view === 'campaigns' ? { padding: 0, background: '#fcfcfd', display: 'flex', flexDirection: 'column' } : {}}>
+            {view !== 'campaigns' && (
+              <div className="crm-page-head">
+                <div>
+                  <h1>{view === 'dashboard' ? `Welcome back, ${firstName}` : PAGE_META[view].title}</h1>
+                  <p>{PAGE_META[view].sub}</p>
                 </div>
-              )}
-              {view === 'eventTypes' && <button className="crm-btn crm-btn-primary"><Plus size={15} /> New event type</button>}
-              {view === 'workflows' && <button className="crm-btn crm-btn-primary"><Plus size={15} /> New workflow</button>}
-            </div>
+                {view === 'dashboard' && (
+                  <div style={{ display: 'flex', gap: 10 }}>
+                    <button className="crm-btn crm-btn-ghost" onClick={exportContactsCSV} disabled={contacts.length === 0}><FileText size={15} /> Export</button>
+                    <button className="crm-btn crm-btn-primary" onClick={() => { setCForm(blankContact); setContactErr(''); setShowContactForm(true); }}><Plus size={15} /> Add lead</button>
+                  </div>
+                )}
+                {view === 'eventTypes' && <button className="crm-btn crm-btn-primary"><Plus size={15} /> New event type</button>}
+                {view === 'workflows' && <button className="crm-btn crm-btn-primary"><Plus size={15} /> New workflow</button>}
+              </div>
+            )}
 
             {/* ---------- DASHBOARD (leads + follow-ups) ---------- */}
             {view === 'dashboard' && (
