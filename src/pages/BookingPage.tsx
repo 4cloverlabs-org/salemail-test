@@ -54,6 +54,8 @@ export default function BookingPage() {
   
   const [bookingStatus, setBookingStatus] = useState<'idle' | 'booking' | 'success'>('idle');
   const [isEmbedded, setIsEmbedded] = useState(false);
+  const [ownerHasGoogle, setOwnerHasGoogle] = useState(false);
+  const [meetLink, setMeetLink] = useState('');
 
   const searchParams = new URLSearchParams(window.location.search);
   const paramBg = searchParams.get('bg');
@@ -87,7 +89,9 @@ export default function BookingPage() {
       try {
         const userDoc = await getDoc(doc(requireDb(), 'users', uid));
         if (!userDoc.exists()) return setError('User not found.');
-        setHostName(userDoc.data().name || 'SaleMail User');
+        const uData = userDoc.data();
+        setHostName(uData.name || 'SaleMail User');
+        setOwnerHasGoogle(!!uData.googleCalendarConnected);
 
         const etQuery = query(collection(requireDb(), 'users', uid, 'eventTypes'), where('slug', '==', slug));
         const etSnap = await getDocs(etQuery);
@@ -130,15 +134,17 @@ export default function BookingPage() {
     if (!name.trim() || !email.trim() || !eventType || !uid || !selectedDate || !selectedTime) return;
     setBookingStatus('booking');
     try {
-      const meet = `https://meet.google.com/${genMeetCode()}`;
+      const generatedMeet = ownerHasGoogle ? `https://meet.google.com/${genMeetCode()}` : '';
       const slot = `June ${selectedDate}, 2026 · ${selectedTime}`;
       
       await addDoc(collection(requireDb(), 'users', uid, 'bookings'), {
         name, email, slot,
         event: eventType.title,
-        status: 'upcoming', meetLink: meet,
+        status: 'upcoming', meetLink: generatedMeet,
         createdAt: Date.now(), createdAtServer: serverTimestamp()
       });
+      
+      setMeetLink(generatedMeet);
 
       await addDoc(collection(requireDb(), 'users', uid, 'contacts'), {
         name, email, company: '', phone: '', status: 'New',
@@ -165,8 +171,20 @@ export default function BookingPage() {
           </div>
           <h2 style={{ fontSize: '1.4rem', marginBottom: 12, fontWeight: 600 }}>Booking Confirmed!</h2>
           <p style={{ color: 'var(--w-text-muted)', fontSize: '0.95rem', lineHeight: 1.5, marginBottom: 24 }}>
-            You're scheduled with {hostName} for a {eventType?.title}. A calendar invite with a Google Meet link has been sent to your email.
+            You're scheduled with {hostName} for a {eventType?.title}. A calendar invite has been sent to your email.
           </p>
+
+          {meetLink && (
+            <div style={{ background: 'var(--w-primary-light)', padding: '16px', borderRadius: '8px', marginBottom: '24px', textAlign: 'left' }}>
+              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--w-text)', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Video size={16} color="var(--w-primary)" /> Google Meet Link
+              </div>
+              <a href={meetLink} target="_blank" rel="noreferrer" style={{ fontSize: '0.95rem', color: 'var(--w-primary)', textDecoration: 'none', wordBreak: 'break-all' }}>
+                {meetLink}
+              </a>
+            </div>
+          )}
+
           <button onClick={() => window.location.reload()} style={{ padding: '10px 20px', background: 'var(--w-primary-light)', border: 'none', borderRadius: 8, cursor: 'pointer', fontWeight: 500, color: 'var(--w-primary)' }}>
             Book another
           </button>
@@ -220,12 +238,12 @@ export default function BookingPage() {
                     <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--w-text)' }}>June 2026</span>
                     <button style={{ border: 'none', background: 'none', cursor: 'pointer', color: 'var(--w-primary)' }}><ChevronRight size={20} /></button>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '10px', textAlign: 'center', marginBottom: 10 }}>
+                  <div className="bk-cal-grid" style={{ marginBottom: 12 }}>
                     {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => (
-                      <div key={d} style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--w-text)', textTransform: 'uppercase' }}>{d}</div>
+                      <div key={d} style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--w-text-muted)', textTransform: 'uppercase' }}>{d}</div>
                     ))}
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '10px 0', textAlign: 'center' }}>
+                  <div className="bk-cal-grid">
                     {[...Array(30)].map((_, i) => {
                       const day = i + 1;
                       const isPast = day < 15;
@@ -235,15 +253,13 @@ export default function BookingPage() {
                       return (
                         <div key={day} style={{ display: 'flex', justifyContent: 'center' }}>
                           <button
+                            className="bk-cal-btn"
                             disabled={disabled}
                             onClick={() => { setSelectedDate(day); setSelectedTime(null); }}
                             style={{
-                              width: 44, height: 44, borderRadius: '50%',
-                              border: 'none', background: selected ? 'var(--w-primary)' : disabled ? 'transparent' : 'var(--w-primary-light)',
+                              background: selected ? 'var(--w-primary)' : disabled ? 'transparent' : 'var(--w-primary-light)',
                               color: selected ? '#fff' : disabled ? '#b2b2b2' : 'var(--w-primary)',
-                              fontWeight: 700, fontSize: '0.95rem',
                               cursor: disabled ? 'default' : 'pointer',
-                              display: 'flex', alignItems: 'center', justifyContent: 'center'
                             }}
                           >
                             {day}

@@ -618,15 +618,15 @@
   box-shadow: 0 12px 40px rgba(0,0,0,0.06);
 }
 .bk-widget-page.is-embedded .bk-widget-card {
-  background: transparent;
-  border-radius: 0;
-  border: none;
-  box-shadow: none;
   min-height: 0;
   height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #e5e7eb);
+  background: var(--w-card-bg, #ffffff);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 .bk-widget-page.is-embedded .bk-widget-left {
-  background: transparent;
+  background: var(--w-card-bg, #ffffff);
 }
 .bk-widget-left {
   flex: 0 0 320px;
@@ -657,10 +657,29 @@
     flex: none;
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 30px;
+    border-bottom: none;
+    padding: 24px 20px;
   }
   .bk-widget-right {
-    padding: 30px;
+    padding: 24px 20px;
   }
+}
+.bk-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px 4px;
+  text-align: center;
+}
+.bk-cal-btn {
+  width: 100%;
+  max-width: 44px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }

@@ -75,6 +75,31 @@
   padding: 0 24px;
 }
 
+/* =================================================================
+   Global Vertical Lines
+   ================================================================= */
+.global-vertical-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1px dashed rgba(0,0,0,0.15); /* Visible dashed/dotted line */
+  z-index: 9999; /* Max z-index to overlay navbar, footer, and all sections */
+  pointer-events: none;
+}
+.left-line {
+  left: calc(50% - 560px);
+}
+.right-line {
+  right: calc(50% - 560px);
+}
+
+@media (max-width: 1120px) {
+  .global-vertical-line {
+    display: none;
+  }
+}
+
 .lexaro-section {
   padding: 120px 0;
   position: relative;
@@ -161,19 +186,6 @@
   position: relative;
   z-index: 100;
 }
-/* Corner markers for Nav/Hero container */
-.corner-tl, .corner-tr, .corner-bl, .corner-br {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-color: #000;
-  border-style: solid;
-  pointer-events: none;
-}
-.corner-tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
-.corner-tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
-.corner-bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
-.corner-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
 
 
 .lexaro-nav .lexaro-container {
@@ -241,6 +253,172 @@
   justify-content: center;
   gap: 16px;
   margin-bottom: 80px;
+}
+
+/* =================================================================
+   New Hero Specific CSS
+   ================================================================= */
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000 30%, transparent 100%);
+  z-index: 1;
+}
+
+.floating-cursor {
+  position: absolute;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: float 6s ease-in-out infinite;
+}
+
+.sarah-cursor {
+  top: 40%;
+  left: 18%;
+  animation-delay: 0s;
+}
+
+.aaron-cursor {
+  top: 50%;
+  right: 18%;
+  animation-delay: -3s;
+}
+
+.cursor-svg {
+  position: absolute;
+  top: -12px;
+  left: -8px;
+  transform: rotate(-15deg);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.cursor-label {
+  color: white;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  margin-top: 4px;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.hero-graphic-container {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 400px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Key to overlap image with prompt box */
+  z-index: 10;
+}
+
+.hero-landscape-img {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%; /* Constrain to container */
+  object-fit: cover; /* Fill width seamlessly */
+  object-position: bottom; /* Anchor to bottom, crop the excess sky at the top */
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-prompt-box {
+  position: relative;
+  z-index: 30;
+  background: white;
+  border-radius: 12px;
+  padding: 20px 24px;
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05);
+  margin-top: -30px; /* Pull it up out of the image slightly */
+}
+
+.blinking-cursor {
+  color: #a3a3a3;
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+  font-weight: 300;
+  flex: 1;
+  text-align: left;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.prompt-submit-btn {
+  background: #000;
+  color: #fff;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+
+.prompt-submit-btn:hover {
+  transform: scale(1.05);
+}
+
+/* =================================================================
+   Trusted Logos Marquee
+   ================================================================= */
+.lexaro-marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  padding: 20px 0;
+}
+
+.lexaro-marquee-track {
+  display: flex;
+  width: fit-content;
+  animation: scrollMarquee 20s linear infinite;
+}
+
+.lexaro-marquee-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 80px;
+  padding: 0 40px;
+  color: #666;
+}
+
+.lexaro-marquee-items svg {
+  opacity: 0.6;
+}
+
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333333%); }
 }
 
 /* =================================================================
@@ -560,8 +738,8 @@
    ================================================================= */
 .lexaro-operations-section {
   padding: 120px 0;
-  background: #111;
-  color: #fff;
+  background: var(--lx-bg, #ffffff);
+  color: #111;
 }
 .lexaro-operations-header {
   text-align: center;
@@ -571,7 +749,7 @@
   font-size: clamp(2.5rem, 4vw, 3rem);
   font-weight: 400;
   letter-spacing: -0.04em;
-  color: #fff;
+  color: #111;
   margin-bottom: 24px;
 }
 .lexaro-operations-header p {
@@ -582,16 +760,14 @@
 }
 
 .lexaro-operations-container {
-  max-width: 100% !important;
-  padding: 0 4vw !important;
+  /* Inherits standard .lexaro-container 1120px max-width */
 }
 
 .lexaro-operations-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
-  max-width: 1800px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 @media (max-width: 1100px) {
@@ -611,12 +787,6 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.lexaro-operation-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 .lexaro-op-visual {
   height: 240px;

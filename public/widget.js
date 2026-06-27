@@ -110,10 +110,14 @@
       for (let i = 0; i < iframes.length; i++) {
         if (iframes[i].contentWindow === e.source) {
           const parent = iframes[i].parentElement;
-          if (parent) {
-             parent.style.height = e.data.height + 'px';
+          
+          if (parent && parent.classList.contains('salemail-inline-widget')) {
+            // NEVER override the user's explicit dimensions on the inline widget!
+            iframes[i].style.height = '100%';
+          } else {
+            // For legacy .salemail-booking widgets without explicit containers, dynamic resize is kept
+            iframes[i].style.height = e.data.height + 'px';
           }
-          iframes[i].style.height = '100%';
           break;
         }
       }

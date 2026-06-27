@@ -15,6 +15,22 @@ const FadeUp = ({ children, delay = 0, className = "" }: { children: React.React
   </motion.div>
 );
 
+const SectionGridLine = () => (
+  <div style={{
+    position: 'absolute',
+    bottom: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '100%',
+    maxWidth: '1120px',
+    borderBottom: '1px dashed rgba(0,0,0,0.15)',
+    zIndex: 50
+  }}>
+    <div style={{ position: 'absolute', bottom: -2, left: -2, width: 5, height: 5, background: 'rgba(0,0,0,0.4)' }} />
+    <div style={{ position: 'absolute', bottom: -2, right: -2, width: 5, height: 5, background: 'rgba(0,0,0,0.4)' }} />
+  </div>
+);
+
 export default function Landing() {
   const navigate = useNavigate();
   const goSignup = () => navigate('/signup');
@@ -24,41 +40,64 @@ export default function Landing() {
   const heroMockupY = useTransform(scrollY, [0, 1000], [0, -120]);
 
   return (
-    <div className="lexaro-landing" style={{ minHeight: '100vh' }}>
-      {/* Outer bounding box simulating the Framer canvas */}
-      <div style={{ position: 'relative', width: '100%' }}>
-        <div className="corner-tl" />
-        <div className="corner-tr" />
-        <div className="corner-bl" />
-        <div className="corner-br" />
+    <div className="lexaro-landing" style={{ minHeight: '100vh', position: 'relative' }}>
 
-        {/* ============ NAVBAR ============ */}
-        <nav className="lexaro-nav">
-          <div className="lexaro-container">
-            <div className="lexaro-logo">
-              <div style={{ width: '10px', height: '10px', background: '#111', transform: 'rotate(45deg)', borderRadius: '1px', marginRight: '2px' }} />
-              SaleMail
-            </div>
-            <div className="lexaro-nav-links">
-              <a href="#about">About</a>
-              <a href="#features">Features</a>
-              <a href="#pricing">Pricing</a>
-              <a href="#blog">Blog</a>
-              <a href="#contact">Contact</a>
-            </div>
-            <div className="lexaro-nav-actions">
-              <button className="lexaro-btn lexaro-btn-dark" onClick={goSignup}>Get Started</button>
-            </div>
+      {/* Outer bounding box simulating the Framer canvas */}
+      <div style={{ position: 'relative', width: '100%', marginBottom: '80px' }}>
+        {/* Global Vertical Lines passing throughout the main content (stops before footer) */}
+        <div className="global-vertical-line left-line" />
+        <div className="global-vertical-line right-line" />
+
+      {/* ============ NAVBAR ============ */}
+      <nav className="lexaro-nav" style={{ position: 'sticky', top: 0, zIndex: 100, background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)' }}>
+        <div className="lexaro-container">
+          <div className="lexaro-logo">
+            <div style={{ width: '10px', height: '10px', background: '#111', transform: 'rotate(45deg)', borderRadius: '1px', marginRight: '2px' }} />
+            SaleMail
           </div>
-        </nav>
+          <div className="lexaro-nav-links">
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Contact</a>
+          </div>
+          <div className="lexaro-nav-actions">
+            <button className="lexaro-btn lexaro-btn-dark" onClick={goSignup}>Get Started</button>
+          </div>
+        </div>
+        
+        <SectionGridLine />
+      </nav>
 
         {/* ============ HERO ============ */}
-        <section className="lexaro-hero" id="home">
-          <div className="lexaro-container">
+        <section className="lexaro-hero" id="home" style={{ position: 'relative' }}>
+          
+          {/* Subtle Grid Background */}
+          <div className="hero-grid-bg" />
+
+          <div className="lexaro-container" style={{ position: 'relative', zIndex: 10 }}>
+            
+            {/* Floating Cursors */}
+            <div className="floating-cursor sarah-cursor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#60a5fa" xmlns="http://www.w3.org/2000/svg" className="cursor-svg">
+                 <path d="M4 2L20 12L12 14L10 22L4 2Z" fill="#60a5fa" stroke="white" strokeWidth="2"/>
+              </svg>
+              <div className="cursor-label" style={{ background: '#60a5fa' }}>Sarah</div>
+            </div>
+            
+            <div className="floating-cursor aaron-cursor">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#f59e0b" xmlns="http://www.w3.org/2000/svg" className="cursor-svg">
+                 <path d="M4 2L20 12L12 14L10 22L4 2Z" fill="#f59e0b" stroke="white" strokeWidth="2"/>
+              </svg>
+              <div className="cursor-label" style={{ background: '#f59e0b', color: '#fff' }}>Aaron</div>
+            </div>
+
             <motion.div 
               initial={{ opacity: 0, y: 20 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.6, ease: "easeOut" }}
+              style={{ position: 'relative', zIndex: 20 }}
             >
               <div className="lexaro-badge">
                 AI-Powered Sales Engagement Platform
@@ -69,131 +108,71 @@ export default function Landing() {
                 and meeting scheduling into one seamless workspace.
               </p>
               <div className="lexaro-hero-cta">
-                <button className="lexaro-btn lexaro-btn-dark" onClick={goSignup} style={{ padding: '14px 28px', fontSize: '15px' }}>
+                <button className="lexaro-btn lexaro-btn-dark" onClick={goSignup} style={{ borderRadius: '100px', padding: '14px 28px', fontSize: '1rem', fontWeight: 600 }}>
                   Start prospecting
                 </button>
-                <button className="lexaro-btn lexaro-btn-ghost" onClick={goSignup} style={{ padding: '14px 28px', fontSize: '15px', position: 'relative' }}>
-                  {/* Inner markers exactly like the image */}
-                  <div style={{ position: 'absolute', top: 2, left: 2, width: 4, height: 4, borderLeft: '1px solid #aaa', borderTop: '1px solid #aaa' }} />
-                  <div style={{ position: 'absolute', top: 2, right: 2, width: 4, height: 4, borderRight: '1px solid #aaa', borderTop: '1px solid #aaa' }} />
-                  <div style={{ position: 'absolute', bottom: 2, left: 2, width: 4, height: 4, borderLeft: '1px solid #aaa', borderBottom: '1px solid #aaa' }} />
-                  <div style={{ position: 'absolute', bottom: 2, right: 2, width: 4, height: 4, borderRight: '1px solid #aaa', borderBottom: '1px solid #aaa' }} />
+                <button className="lexaro-btn lexaro-btn-ghost" onClick={goSignup} style={{ borderRadius: '100px', padding: '14px 28px', fontSize: '1rem', fontWeight: 600, border: '1px solid #e5e5e5', background: '#fff', color: '#000' }}>
                   See examples ↗
                 </button>
               </div>
             </motion.div>
 
-            <div className="lexaro-dashboard-wrapper">
-              <motion.div 
-                className="lexaro-dashboard" 
-                style={{ 
-                  y: heroMockupY, 
-                  rotateX: 18, 
-                  rotateY: 10,  /* Tilted left side closer */
-                  rotateZ: -2,  /* Exact tilt from image */
-                  transformOrigin: 'center center'
-                }}
-              >
-              {/* Premium SaleMail Dashboard Mockup */}
-              <div style={{ display: 'flex', height: '480px' }}>
-              {/* Sidebar */}
-              <div style={{ width: '240px', background: '#fafafa', borderRight: '1px solid var(--lx-border)', padding: '24px 16px', textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px', fontWeight: 600, color: '#0a0a0a' }}>
-                   <div style={{ width: 20, height: 20, background: 'linear-gradient(135deg, #0a0a0a, #333)', borderRadius: 6, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} />
-                   Acme Corp
-                </div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.05em', color: '#a3a3a3', marginBottom: '16px', paddingLeft: '8px' }}>MAIN MENU</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <div style={{ padding: '8px 12px', background: '#ffffff', border: '1px solid var(--lx-border)', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 500, color: '#0a0a0a', boxShadow: 'var(--lx-shadow-sm)' }}>Overview</div>
-                  <div style={{ padding: '8px 12px', fontSize: '0.85rem', color: '#525252', fontWeight: 500 }}>Documents</div>
-                  <div style={{ padding: '8px 12px', fontSize: '0.85rem', color: '#525252', fontWeight: 500 }}>Brand Voice</div>
-                  <div style={{ padding: '8px 12px', fontSize: '0.85rem', color: '#525252', fontWeight: 500 }}>Analytics</div>
-                  <div style={{ padding: '8px 12px', fontSize: '0.85rem', color: '#525252', fontWeight: 500 }}>Settings</div>
-                </div>
-              </div>
+            {/* Bottom Graphic & Input */}
+            <motion.div 
+              className="hero-graphic-container"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            >
+              <img src="/hero-landscape.png" alt="Landscape" className="hero-landscape-img" />
               
-              {/* Main Content */}
-              <div style={{ flex: 1, padding: '32px', background: '#ffffff', textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: '0.85rem', color: '#a3a3a3', marginBottom: '12px', fontWeight: 500 }}>Campaigns / Q3 Enterprise Outreach / Sequence 1</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '32px', color: '#0a0a0a', letterSpacing: '-0.02em' }}>VP of Engineering - Cold Email</div>
+              {/* Floating Input Box */}
+              <div className="hero-prompt-box">
+                <span style={{ color: '#000', fontSize: '0.95rem', fontWeight: 500 }}>Show me how marketing spend is performing</span>
+                <span className="blinking-cursor">|</span>
                 
-                <div style={{ display: 'flex', gap: '24px', flex: 1 }}>
-                  {/* Editor Window */}
-                  <div style={{ flex: 2, background: '#fafafa', border: '1px solid var(--lx-border)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column' }}>
-                     <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
-                       <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#e5e5e5' }} />
-                       <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#e5e5e5' }} />
-                       <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#e5e5e5' }} />
-                     </div>
-                     <div style={{ fontSize: '1rem', color: '#0a0a0a', lineHeight: 1.7, flex: 1 }}>
-                       <p style={{ margin: '0 0 16px' }}>Hi {"{"}{"{"}firstName{"}"}{"}"},</p>
-                       <p style={{ margin: '0 0 16px' }}>Saw your recent post about <span style={{ borderBottom: '2px dashed #f59e0b', color: '#d97706' }}>scaling data infrastructure</span>. We help teams like {"{"}{"{"}companyName{"}"}{"}"} <span style={{ borderBottom: '2px dashed #334155', color: '#dc2626' }}>reduce cloud costs by 30%</span>.</p>
-                       <p style={{ margin: 0, color: '#a3a3a3' }}>Open to a quick chat next week?</p>
-                     </div>
-                  </div>
-                  
-                  {/* AI Assistant Sidebar */}
-                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                     {/* Quality Card */}
-                     <div style={{ background: '#ffffff', border: '1px solid var(--lx-border)', borderRadius: '12px', padding: '20px', boxShadow: 'var(--lx-shadow-sm)' }}>
-                       <div style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '16px', color: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                         Campaign Health
-                         <span style={{ background: '#ecfdf5', color: '#059669', padding: '2px 8px', borderRadius: '100px', fontSize: '0.75rem' }}>Excellent</span>
-                       </div>
-                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '12px', color: '#525252' }}>
-                         <span>Deliverability: High</span>
-                         <span style={{ color: '#64748b', fontWeight: 600 }}>✓</span>
-                       </div>
-                       <div style={{ height: '6px', background: '#f5f5f5', borderRadius: '3px', marginBottom: '16px', overflow: 'hidden' }}>
-                         <div style={{ width: '85%', height: '100%', background: 'linear-gradient(90deg, #64748b, #34d399)', borderRadius: '3px' }} />
-                       </div>
-                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.85rem', color: '#525252' }}>
-                         <span>Personalization: 92%</span>
-                         <span style={{ color: '#64748b', fontWeight: 600 }}>✓</span>
-                       </div>
-                     </div>
-                     
-                     {/* Suggestion Card */}
-                     <div style={{ background: '#fffbeb', border: '1px solid #fde68a', borderRadius: '12px', padding: '20px', boxShadow: 'var(--lx-shadow-sm)' }}>
-                       <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#b45309', marginBottom: '8px' }}>Personalization Suggestion</div>
-                       <div style={{ fontSize: '0.85rem', color: '#92400e', lineHeight: 1.5, marginBottom: '12px' }}>
-                         Adding a custom icebreaker about their recent Series B funding will increase reply rates. 
-                       </div>
-                       <button style={{ background: '#ffffff', border: '1px solid #fcd34d', borderRadius: '6px', padding: '6px 12px', fontSize: '0.8rem', fontWeight: 500, color: '#b45309', cursor: 'pointer', width: '100%', textAlign: 'left', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                         <span>Generate AI Icebreaker</span>
-                         <span>✨</span>
-                       </button>
-                     </div>
-                  </div>
-                </div>
+                <button className="prompt-submit-btn">
+                  <span>➔</span>
+                </button>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
           </div>
-          </div>
+          <SectionGridLine />
         </section>
-      </div> {/* End of Framer boundary container */}
 
 
       {/* ============ TRUSTED LOGOS ============ */}
-      <section className="lexaro-trusted">
+      <section className="lexaro-trusted" style={{ position: 'relative' }}>
         <div className="lexaro-container">
           <FadeUp>
-            <p>Trusted by innovative teams worldwide</p>
-            <div className="lexaro-logos">
-              {/* Replacing pure text with simple SVG mocks for realism */}
-              <svg height="24" viewBox="0 0 100 24" fill="currentColor"><path d="M10 0H0v24h10c6.6 0 12-5.4 12-12S16.6 0 10 0z" fillOpacity=".8"/><path d="M40 0H30v24h10c6.6 0 12-5.4 12-12S46.6 0 40 0z" fillOpacity=".5"/><path d="M70 0H60v24h10c6.6 0 12-5.4 12-12S76.6 0 70 0z" fillOpacity=".3"/></svg>
-              <svg height="24" viewBox="0 0 100 24" fill="currentColor"><circle cx="12" cy="12" r="12" fillOpacity=".8"/><circle cx="36" cy="12" r="12" fillOpacity=".5"/><circle cx="60" cy="12" r="12" fillOpacity=".3"/></svg>
-              <span style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em' }}>Vercel</span>
-              <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.05em' }}>Retool</span>
-              <span style={{ fontSize: '1.25rem', fontWeight: 600 }}>Segment</span>
+            <p style={{ textAlign: 'center', color: '#666', fontSize: '0.9rem', marginBottom: '24px' }}>Trusted by innovative teams worldwide</p>
+            <div className="lexaro-marquee-wrapper">
+              <div className="lexaro-marquee-track">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="lexaro-marquee-items">
+                    <span style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L22 20H2L12 2Z"/></svg>
+                      Vercel
+                    </span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.05em' }}>Retool</span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <div style={{ width: 14, height: 14, background: 'currentColor', borderRadius: '50%' }} />
+                      Segment
+                    </span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.03em' }}>Stripe</span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 500, fontFamily: 'serif', letterSpacing: '0.05em' }}>Notion</span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 600, letterSpacing: '-0.03em' }}>Linear</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </FadeUp>
         </div>
+        <SectionGridLine />
       </section>
 
       {/* ============ THE PROBLEM (LEGACY WORKFLOWS) ============ */}
-      <section className="lexaro-legacy-section" style={{ padding: '80px 0' }}>
+      <section className="lexaro-legacy-section" style={{ padding: '80px 0', position: 'relative' }}>
         <div className="lexaro-container" style={{ position: 'relative', borderLeft: '1px solid #eaeaea', borderRight: '1px solid #eaeaea' }}>
           
           {/* Top Hatched Bar */}
@@ -202,11 +181,7 @@ export default function Landing() {
           {/* Bottom Hatched Bar */}
           <div className="hatched-bg" style={{ position: 'absolute', bottom: -49, left: -1, right: -1, borderLeft: '1px solid #eaeaea', borderRight: '1px solid #eaeaea', height: '48px' }} />
 
-          {/* Corner Markers */}
-          <div className="corner-tl" style={{ top: -1, left: -1 }} />
-          <div className="corner-tr" style={{ top: -1, right: -1 }} />
-          <div className="corner-bl" style={{ bottom: -1, left: -1 }} />
-          <div className="corner-br" style={{ bottom: -1, right: -1 }} />
+          {/* Corner Markers Removed */}
 
           <div style={{ padding: '80px 60px' }}>
             <FadeUp>
@@ -318,10 +293,11 @@ export default function Landing() {
           </FadeUp>
           </div>
         </div>
+        <SectionGridLine />
       </section>
 
       {/* ============ THE SYSTEM (EXACT MATCH) ============ */}
-      <section className="lexaro-system-section" id="features">
+      <section className="lexaro-system-section" id="features" style={{ position: 'relative' }}>
         <div className="lexaro-container">
           <FadeUp>
             <h2 className="lexaro-system-title">Turn scattered sales tools into a<br />controlled system</h2>
@@ -605,10 +581,11 @@ export default function Landing() {
           </div>
           </div>
         </div>
+        <SectionGridLine />
       </section>
 
       {/* ============ CORE OPERATIONS (Grid) ============ */}
-      <section className="lexaro-operations-section" id="operations">
+      <section className="lexaro-operations-section" id="operations" style={{ position: 'relative' }}>
         <div className="lexaro-container lexaro-operations-container">
           <FadeUp>
             <div className="lexaro-operations-header">
@@ -905,10 +882,11 @@ export default function Landing() {
             </FadeUp>
           </div>
         </div>
+        <SectionGridLine />
       </section>
 
       {/* ============ INTEGRATIONS (Exact Image Match) ============ */}
-      <section className="lexaro-section bg-white" id="integrations">
+      <section className="lexaro-section bg-white" id="integrations" style={{ position: 'relative' }}>
         <div className="lexaro-container">
           <FadeUp>
             <div className="lexaro-integrations-header" style={{ textAlign: 'center', marginBottom: '80px' }}>
@@ -973,6 +951,7 @@ export default function Landing() {
             </div>
           </FadeUp>
         </div>
+        <SectionGridLine />
       </section>
 
       {/* ============ PRICING (Exact Image Match) ============ */}
@@ -1092,6 +1071,40 @@ export default function Landing() {
           </div>
         </div>
       </section>
+
+      {/* ============ CAMPAIGN VILLAGE ============ */}
+      <section className="lexaro-campaign-village" style={{ position: 'relative', overflow: 'hidden', paddingTop: '80px', backgroundColor: '#fff' }}>
+        <div className="hero-grid-bg" />
+
+        <div className="lexaro-container" style={{ position: 'relative', zIndex: 10 }}>
+          <FadeUp>
+            <div style={{ maxWidth: '600px', marginBottom: '20px' }}>
+              <h2 style={{ fontSize: '3rem', fontWeight: 600, letterSpacing: '-0.04em', lineHeight: 1.1, color: '#111', marginBottom: '16px' }}>
+                Your best-performing<br />campaign starts here.
+              </h2>
+              <p style={{ fontSize: '1.1rem', color: '#666', marginBottom: '32px', fontWeight: 500 }}>
+                Set up in minutes. See results from day one.
+              </p>
+              
+              <div style={{ display: 'flex', gap: '16px' }}>
+                <button className="lexaro-btn lexaro-btn-dark" onClick={goSignup} style={{ borderRadius: '40px', padding: '14px 28px', fontSize: '15px' }}>
+                  Start for free
+                </button>
+                <button className="lexaro-btn lexaro-btn-ghost" onClick={goSignup} style={{ borderRadius: '40px', padding: '14px 28px', fontSize: '15px', border: '1px solid #eaeaea', background: '#fff' }}>
+                  Talk to sales
+                </button>
+              </div>
+            </div>
+          </FadeUp>
+        </div>
+
+        <div style={{ position: 'relative', width: '100%', maxWidth: '1120px', height: '480px', margin: '0 auto', display: 'flex', justifyContent: 'center', overflow: 'hidden' }}>
+          <img src="/campaign-village.png" alt="Campaign Village" style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover', objectPosition: 'center 60%' }} />
+        </div>
+        
+        <SectionGridLine />
+      </section>
+      </div> {/* End of main content boundary container */}
 
       {/* ============ FOOTER ============ */}
       <section className="lexaro-footer-section">

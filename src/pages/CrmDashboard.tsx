@@ -231,6 +231,32 @@ export default function CrmDashboard() {
   const [appCat, setAppCat] = useState('All');
   const [appsTab, setAppsTab] = useState<'store' | 'installed'>('store');
   const [peopleTab, setPeopleTab] = useState<'contacts' | 'teams'>('contacts');
+  
+  // Google Calendar Integration Mock State
+  const [googleConnected, setGoogleConnected] = useState(localStorage.getItem('googleCalConnected') === 'true');
+
+  const handleConnectGoogle = async () => {
+    // Simulate OAuth flow
+    setToast('Redirecting to Google...');
+    setTimeout(async () => {
+      localStorage.setItem('googleCalConnected', 'true');
+      setGoogleConnected(true);
+      if (user?.uid) {
+        await updateDoc(doc(db, 'users', user.uid), { googleCalendarConnected: true }).catch(() => {});
+      }
+      setToast('Google Calendar connected successfully!');
+      setTimeout(() => setToast(null), 2000);
+    }, 1500);
+  };
+  const handleDisconnectGoogle = async () => {
+    localStorage.removeItem('googleCalConnected');
+    setGoogleConnected(false);
+    if (user?.uid) {
+      await updateDoc(doc(db, 'users', user.uid), { googleCalendarConnected: false }).catch(() => {});
+    }
+    setToast('Google Calendar disconnected.');
+    setTimeout(() => setToast(null), 2000);
+  };
 
   // ----- Live Data (Firestore) -----
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -1119,6 +1145,23 @@ export default function CrmDashboard() {
                       <button className={`crm-switch${notif[n.key] ? ' on' : ''}`} onClick={() => setNotif(prev => ({ ...prev, [n.key]: !prev[n.key] }))} aria-label={n.tt} />
                     </div>
                   ))}
+                </div>
+
+                <div className="crm-card" style={{ alignSelf: 'start', gridColumn: '1 / -1' }}>
+                  <div className="crm-card-head"><h3>Integrations</h3></div>
+                  <div className="crm-toggle-row" style={{ borderBottom: 'none' }}>
+                    <div>
+                      <div className="tt" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <Calendar size={16} color="var(--w-primary)" /> Google Calendar
+                      </div>
+                      <div className="ds">Auto-generate Google Meet links when users schedule a meeting.</div>
+                    </div>
+                    {googleConnected ? (
+                      <button className="crm-btn crm-btn-ghost" onClick={handleDisconnectGoogle} style={{ padding: '6px 12px', fontSize: '0.75rem', height: 'auto', minHeight: 0, color: 'var(--rose)' }}>Disconnect</button>
+                    ) : (
+                      <button className="crm-btn crm-btn-primary" onClick={handleConnectGoogle} style={{ padding: '6px 12px', fontSize: '0.75rem', height: 'auto', minHeight: 0 }}>Connect Google</button>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
