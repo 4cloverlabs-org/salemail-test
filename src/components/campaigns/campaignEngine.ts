@@ -121,7 +121,7 @@ export interface CampaignSettingsData {
   linkTracking: boolean;
   autoUnsubscribe: boolean;
   signature: string;
-  directMailEngine?: 'gmail' | 'web3forms' | 'emailjs' | 'formsubmit';
+  directMailEngine?: 'gmail' | 'web3forms' | 'emailjs';
   gmailAccessToken?: string;
   gmailUserEmail?: string;
   web3FormsKey?: string;
@@ -406,21 +406,7 @@ class CampaignEngine {
         return;
       }
 
-      // 3. Fallback Gateway (FormSubmit)
-      await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`, {
-        method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: subject || 'SaleMail Campaign Outreach',
-          message: cleanMessage,
-          _html: htmlBody,
-          _from: "SaleMail AI <no-reply@salemail.io>"
-        })
-      });
-      console.log(`[SaleMail Gateway Dispatch] Dispatched request to ${recipient}.`);
+      console.log(`[SaleMail Direct Engine] Prepared direct mail shoot for ${recipient}. Connect Gmail API / Web3Forms for live SMTP transmission.`);
     } catch (err) {
       console.warn("Real email dispatch warning:", err);
     }
