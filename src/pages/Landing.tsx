@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Check, Zap, Target, Slack, Github, Twitter, Linkedin, CheckCircle2, FileText, GitMerge, BarChart3, Sparkles, Wand2, AlignLeft, ListChecks, Database, Aperture, Layout, Hexagon, Disc } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Check, Target, Slack, Github, Twitter, Linkedin, CheckCircle2, FileText, GitMerge, BarChart3, Sparkles, Wand2, AlignLeft, ListChecks, Database } from 'lucide-react';
 import './Landing.css';
 
 const FadeUp = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
@@ -13,6 +13,66 @@ const FadeUp = ({ children, delay = 0, className = "" }: { children: React.React
   >
     {children}
   </motion.div>
+);
+
+/* ---- Real brand logos for the integrations orbit ---- */
+const SalesforceLogo = () => (
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-label="Salesforce">
+    <path d="M10.1 8.6a3.1 3.1 0 0 1 5.4.8 2.7 2.7 0 1 1 .5 5.3H8.1a2.9 2.9 0 0 1-.5-5.7 3.3 3.3 0 0 1 2.5-.4z" fill="#00A1E0" />
+  </svg>
+);
+const HubspotLogo = () => (
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-label="HubSpot">
+    <circle cx="9.5" cy="15" r="4.3" fill="none" stroke="#FF7A59" strokeWidth="2" />
+    <circle cx="17" cy="7.2" r="2.3" fill="#FF7A59" />
+    <path d="M14.8 7.2H12.5V12" stroke="#FF7A59" strokeWidth="2" fill="none" />
+  </svg>
+);
+const GmailLogo = () => (
+  <svg viewBox="0 0 48 48" width="22" height="22" aria-label="Gmail">
+    <path fill="#4caf50" d="M45 16.2l-5 2.75-5 4.75V40h7a3 3 0 0 0 3-3z" />
+    <path fill="#1e88e5" d="M3 16.2l3.614 1.71L13 23.7V40H6a3 3 0 0 1-3-3z" />
+    <path fill="#e53935" d="M35 11.2L24 19.45 13 11.2 12 17l1 6.7 11 8.25 11-8.25 1-6.7z" />
+    <path fill="#c62828" d="M3 12.298V16.2l10 7.5V11.2L9.876 8.859A4.298 4.298 0 0 0 3 12.298z" />
+    <path fill="#fbc02d" d="M45 12.298V16.2l-10 7.5V11.2l3.124-2.341A4.298 4.298 0 0 1 45 12.298z" />
+  </svg>
+);
+const OutlookLogo = () => (
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-label="Outlook">
+    <rect x="10" y="4.5" width="11.5" height="15" rx="1" fill="#0F6CBD" />
+    <rect x="12" y="8" width="8" height="4.5" fill="#fff" opacity="0.85" />
+    <ellipse cx="7" cy="12" rx="6.2" ry="5.2" fill="#0A4F8F" />
+    <ellipse cx="7" cy="12" rx="3" ry="3.4" fill="none" stroke="#fff" strokeWidth="1.7" />
+  </svg>
+);
+const SlackLogo = () => (
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-label="Slack">
+    <path fill="#36C5F0" d="M9.6 3.5a1.85 1.85 0 1 0 0 3.7h1.85V5.35A1.85 1.85 0 0 0 9.6 3.5m0 4.93H4.65a1.85 1.85 0 1 0 0 3.7H9.6a1.85 1.85 0 0 0 0-3.7" />
+    <path fill="#2EB67D" d="M20.5 10.28a1.85 1.85 0 1 0-3.7 0v1.85h1.85a1.85 1.85 0 0 0 1.85-1.85m-4.93 0V5.35a1.85 1.85 0 1 0-3.7 0v4.93a1.85 1.85 0 0 0 3.7 0" />
+    <path fill="#ECB22E" d="M14.4 20.5a1.85 1.85 0 1 0 0-3.7h-1.85v1.85c0 1.02.83 1.85 1.85 1.85m0-4.93h4.95a1.85 1.85 0 1 0 0-3.7H14.4a1.85 1.85 0 0 0 0 3.7" />
+    <path fill="#E01E5A" d="M3.5 13.72a1.85 1.85 0 1 0 3.7 0v-1.85H5.35a1.85 1.85 0 0 0-1.85 1.85m4.93 0v4.93a1.85 1.85 0 1 0 3.7 0v-4.93a1.85 1.85 0 0 0-3.7 0" />
+  </svg>
+);
+const NotionLogo = () => (
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-label="Notion">
+    <rect x="3" y="3" width="18" height="18" rx="3" fill="#fff" stroke="#111" strokeWidth="1.2" />
+    <path d="M8 16V9l5 6V9" fill="none" stroke="#111" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+const ZapierLogo = () => (
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-label="Zapier">
+    <g stroke="#FF4F00" strokeWidth="2.4" strokeLinecap="round">
+      <path d="M12 4v16" /><path d="M4 12h16" /><path d="M6.3 6.3l11.4 11.4" /><path d="M17.7 6.3 6.3 17.7" />
+    </g>
+  </svg>
+);
+const GoogleLogo = () => (
+  <svg viewBox="0 0 48 48" width="22" height="22" aria-label="Google">
+    <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.4 29.3 35 24 35c-6.1 0-11-4.9-11-11s4.9-11 11-11c2.8 0 5.4 1.1 7.3 2.8l5.7-5.7C33.6 6.2 29.1 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.3-.4-3.5z" />
+    <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c2.8 0 5.4 1.1 7.3 2.8l5.7-5.7C33.6 6.2 29.1 4 24 4 16.3 4 9.7 8.3 6.3 14.7z" />
+    <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35 26.7 36 24 36c-5.3 0-9.7-2.6-11.3-7l-6.5 5C9.5 39.6 16.2 44 24 44z" />
+    <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.1-4.1 5.6l6.2 5.2C42.6 35.4 44 30.1 44 24c0-1.2-.1-2.3-.4-3.5z" />
+  </svg>
 );
 
 const SectionGridLine = () => (
@@ -34,10 +94,6 @@ const SectionGridLine = () => (
 export default function Landing() {
   const navigate = useNavigate();
   const goSignup = () => navigate('/signup');
-
-  // Parallax for Hero
-  const { scrollY } = useScroll();
-  const heroMockupY = useTransform(scrollY, [0, 1000], [0, -120]);
 
   return (
     <div className="lexaro-landing" style={{ minHeight: '100vh', position: 'relative' }}>
@@ -195,8 +251,8 @@ export default function Landing() {
             <div className="lexaro-legacy-grid-2">
               {/* Left Card: Scattered */}
               <div className="lexaro-legacy-card">
-                <h3>Scattered sales tools</h3>
-                <p>Prospects live in ZoomInfo. Emails live in Outreach. Calendars live in Google. Nothing is connected.</p>
+                <h3>Fragmented Data Silos</h3>
+                <p>Prospects live in ZoomInfo. Emails live in Outreach. Calendars live in Google. Nothing is connected, causing data leaks and lost deals.</p>
                 <div className="lexaro-legacy-visual">
                   <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}>
                     <path d="M 50 200 L 120 170 L 150 210 L 250 160 L 330 180 L 400 130" fill="none" stroke="#ccc" strokeWidth="1.5" strokeDasharray="4 4" />
@@ -211,15 +267,15 @@ export default function Landing() {
 
                   {/* Pills */}
                   <div className="lexaro-node-pill" style={{ top: '130px', left: '80px', transform: 'rotate(-10deg)', zIndex: 3 }}>
-                    LEADS
+                    ZoomInfo
                     <div className="lexaro-warning-icon">!</div>
                   </div>
                   <div className="lexaro-node-pill" style={{ top: '120px', left: '220px', transform: 'rotate(10deg)', zIndex: 3 }}>
-                    EMAILS
+                    Outreach
                     <div className="lexaro-warning-icon">!</div>
                   </div>
                   <div className="lexaro-node-pill" style={{ top: '200px', left: '160px', transform: 'rotate(5deg)', zIndex: 3 }}>
-                    MEETINGS
+                    Calendly
                     <div className="lexaro-warning-icon">!</div>
                   </div>
                 </div>
@@ -227,17 +283,17 @@ export default function Landing() {
 
               {/* Right Card: Unified */}
               <div className="lexaro-legacy-card">
-                <h3>One intelligent outbound engine</h3>
-                <p>SaleMail connects your lead discovery, automated sequences, and meeting scheduling into a unified workspace.</p>
+                <h3>The All-In-One Revenue Engine</h3>
+                <p>SaleMail unifies your lead discovery, automated sequences, and meeting scheduling into a single, intelligent workspace.</p>
                 <div className="lexaro-legacy-visual">
                   <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}>
-                    <path d="M 120 180 C 180 180, 180 100, 260 100" fill="none" stroke="#ccc" strokeWidth="1.5" strokeDasharray="4 4" />
-                    <path d="M 120 180 C 200 180, 200 180, 260 180" fill="none" stroke="#ccc" strokeWidth="1.5" strokeDasharray="4 4" />
-                    <path d="M 120 180 C 180 180, 180 250, 260 250" fill="none" stroke="#ccc" strokeWidth="1.5" strokeDasharray="4 4" />
+                    <path d="M 120 180 C 150 180, 150 100, 190 100" fill="none" stroke="#ccc" strokeWidth="1.5" strokeDasharray="4 4" />
+                    <path d="M 120 180 C 160 180, 160 180, 190 180" fill="none" stroke="#ccc" strokeWidth="1.5" strokeDasharray="4 4" />
+                    <path d="M 120 180 C 150 180, 150 250, 190 250" fill="none" stroke="#ccc" strokeWidth="1.5" strokeDasharray="4 4" />
                   </svg>
                   
                   {/* SaleMail Node */}
-                  <div className="lexaro-node-lexaro" style={{ top: '140px', left: '50px', zIndex: 3 }}>
+                  <div className="lexaro-node-lexaro" style={{ top: '140px', left: '30px', zIndex: 3 }}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 4L4 12L12 20L20 12L12 4Z" fill="#555" />
                       <path d="M6 10L14 18L18 14L10 6L6 10Z" fill="#111" />
@@ -247,23 +303,23 @@ export default function Landing() {
                   </div>
 
                   {/* Pills */}
-                  <div className="lexaro-node-pill" style={{ top: '80px', left: '260px', zIndex: 3 }}>
+                  <div className="lexaro-node-pill" style={{ top: '80px', left: '190px', zIndex: 3 }}>
                     <div style={{ background: '#10b981', color: '#fff', borderRadius: '50%', width: 18, height: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Check size={12} strokeWidth={3} />
                     </div>
-                    LEADS
+                    Verified Data
                   </div>
-                  <div className="lexaro-node-pill" style={{ top: '160px', left: '260px', zIndex: 3 }}>
+                  <div className="lexaro-node-pill" style={{ top: '160px', left: '190px', zIndex: 3 }}>
                     <div style={{ background: '#10b981', color: '#fff', borderRadius: '50%', width: 18, height: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Check size={12} strokeWidth={3} />
                     </div>
-                    EMAILS
+                    AI Sequences
                   </div>
-                  <div className="lexaro-node-pill" style={{ top: '230px', left: '260px', zIndex: 3 }}>
+                  <div className="lexaro-node-pill" style={{ top: '230px', left: '190px', zIndex: 3 }}>
                     <div style={{ background: '#10b981', color: '#fff', borderRadius: '50%', width: 18, height: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Check size={12} strokeWidth={3} />
                     </div>
-                    MEETINGS
+                    Auto-Booking
                   </div>
                 </div>
               </div>
@@ -896,58 +952,31 @@ export default function Landing() {
           </FadeUp>
 
           <FadeUp delay={0.1}>
-            <div className="lexaro-integrations-wrapper">
-              {/* Curved SVG Lines */}
-              <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}>
-                {/* Left Pink Segments */}
-                <path d="M 132 60 L 148 60" fill="none" stroke="#2563eb" strokeWidth="2" />
-                <path d="M 132 180 L 148 180" fill="none" stroke="#2563eb" strokeWidth="2" />
-                <path d="M 132 300 L 148 300" fill="none" stroke="#2563eb" strokeWidth="2" />
-                <path d="M 132 420 L 148 420" fill="none" stroke="#2563eb" strokeWidth="2" />
-                
-                {/* Left Grey Lines */}
-                <path d="M 148 60 C 230 60, 230 240, 320 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-                <path d="M 148 180 C 230 180, 230 240, 320 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-                <path d="M 148 300 C 230 300, 230 240, 320 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-                <path d="M 148 420 C 230 420, 230 240, 320 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-                {/* Left Main Stem */}
-                <path d="M 320 240 L 352 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-
-                {/* Right Pink Segments */}
-                <path d="M 668 60 L 652 60" fill="none" stroke="#2563eb" strokeWidth="2" />
-                <path d="M 668 180 L 652 180" fill="none" stroke="#2563eb" strokeWidth="2" />
-                <path d="M 668 300 L 652 300" fill="none" stroke="#2563eb" strokeWidth="2" />
-                <path d="M 668 420 L 652 420" fill="none" stroke="#2563eb" strokeWidth="2" />
-                
-                {/* Right Grey Lines */}
-                <path d="M 652 60 C 570 60, 570 240, 480 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-                <path d="M 652 180 C 570 180, 570 240, 480 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-                <path d="M 652 300 C 570 300, 570 240, 480 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-                <path d="M 652 420 C 570 420, 570 240, 480 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-                {/* Right Main Stem */}
-                <path d="M 480 240 L 448 240" fill="none" stroke="#e5e5e5" strokeWidth="2" />
-              </svg>
-
-              {/* Left Icons */}
-              <div className="lexaro-icon-box" style={{ left: '100px', top: '60px' }}><Database color="#4f46e5" size={28} /></div>
-              <div className="lexaro-icon-box" style={{ left: '100px', top: '180px' }}><Slack color="#475569" size={28} /></div>
-              <div className="lexaro-icon-box" style={{ left: '100px', top: '300px' }}><Aperture color="#334155" size={28} /></div>
-              <div className="lexaro-icon-box" style={{ left: '100px', top: '420px' }}><Layout color="#2563eb" size={28} /></div>
-
-              {/* Central Node */}
-              <div className="lexaro-center-logo-box">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div className="lexaro-orbit-wrapper">
+              {/* Central Logo */}
+              <div className="lexaro-orbit-center">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 4L4 12L12 20L20 12L12 4Z" fill="#fff" />
                   <path d="M6 10L14 18L18 14L10 6L6 10Z" fill="#fff" />
                   <path d="M18 10L10 18L6 14L14 6L18 10Z" fill="#fff" />
                 </svg>
               </div>
 
-              {/* Right Icons */}
-              <div className="lexaro-icon-box" style={{ left: '700px', top: '60px' }}><Zap color="#2563eb" size={28} /></div>
-              <div className="lexaro-icon-box" style={{ left: '700px', top: '180px' }}><Target color="#2563eb" size={28} /></div>
-              <div className="lexaro-icon-box" style={{ left: '700px', top: '300px' }}><Hexagon color="#4f46e5" size={28} /></div>
-              <div className="lexaro-icon-box" style={{ left: '700px', top: '420px' }}><Disc color="#2563eb" size={28} /></div>
+              {/* Ring 1 (Inner): CRM + sending domains */}
+              <div className="lexaro-orbit-ring ring-1">
+                <div className="lexaro-orbit-icon" style={{ top: '0%', left: '50%' }}><SalesforceLogo /></div>
+                <div className="lexaro-orbit-icon" style={{ top: '100%', left: '50%' }}><HubspotLogo /></div>
+                <div className="lexaro-orbit-icon" style={{ top: '50%', left: '0%' }}><GmailLogo /></div>
+                <div className="lexaro-orbit-icon" style={{ top: '50%', left: '100%' }}><OutlookLogo /></div>
+              </div>
+
+              {/* Ring 2 (Outer): data + automation */}
+              <div className="lexaro-orbit-ring ring-2">
+                <div className="lexaro-orbit-icon" style={{ top: '14.6%', left: '14.6%' }}><SlackLogo /></div>
+                <div className="lexaro-orbit-icon" style={{ top: '85.4%', left: '85.4%' }}><NotionLogo /></div>
+                <div className="lexaro-orbit-icon" style={{ top: '14.6%', left: '85.4%' }}><ZapierLogo /></div>
+                <div className="lexaro-orbit-icon" style={{ top: '85.4%', left: '14.6%' }}><GoogleLogo /></div>
+              </div>
             </div>
           </FadeUp>
         </div>

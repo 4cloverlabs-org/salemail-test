@@ -2,9 +2,9 @@
 
 :root {
   /* HSL Color Palette (Light Theme Default) */
-  --bg-primary: 30deg 20% 98%;      /* Warm soft cream: #FAF9F6 */
+  --bg-primary: 0deg 0% 100%;      /* Pure White: #FFFFFF */
   --bg-secondary: 0deg 0% 100%;     /* Pure White: #FFFFFF */
-  --bg-tertiary: 30deg 15% 94%;     /* Light gray-cream: #F4F2EB */
+  --bg-tertiary: 0deg 0% 100%;     /* Pure White: #FFFFFF */
 
   --text-primary: 240deg 10% 8%;     /* Dark Charcoal: #121214 */
   --text-secondary: 240deg 5% 45%;   /* Slate Gray: #6B6B75 */
