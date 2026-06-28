@@ -152,30 +152,26 @@
 
 /* Cal.com Inspired Availability Settings UI */
 .cal-layout {
-  display: flex; flex-direction: column; width: 100%; max-width: 1040px; margin: 0 auto;
+  display: flex; flex-direction: column; width: 100%;
 }
 .cal-header {
   display: flex; justify-content: space-between; align-items: flex-start;
   padding-bottom: 24px; margin-bottom: 24px;
 }
-.cal-header-left {
-  display: flex; gap: 16px;
-}
+.cal-header-left { display: flex; align-items: flex-start; gap: 12px; margin-left: -8px; }
 .cal-back-btn {
-  background: none; border: none; cursor: pointer; color: #64748B;
-  display: flex; align-items: center; justify-content: center;
-  padding: 4px; transition: color 0.2s;
+  background: transparent; border: none; border-radius: 6px; width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748B;
+  transition: all 0.2s; margin-top: 2px;
 }
-.cal-back-btn:hover { color: #0F172A; }
+.cal-back-btn:hover { background: #F1F5F9; color: #0F172A; }
 .cal-title-group h2 {
-  margin: 0; font-size: 1.25rem; font-weight: 600; color: #0F172A;
-  display: flex; align-items: center; gap: 8px; letter-spacing: -0.01em;
+  margin: 0 0 4px; font-size: 1.4rem; font-weight: 700; color: #0F172A; letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 8px;
 }
-.cal-title-group h2 svg { color: #94A3B8; cursor: pointer; }
-.cal-title-group h2 svg:hover { color: #64748B; }
-.cal-title-group p {
-  margin: 4px 0 0; font-size: 0.85rem; color: #64748B; font-weight: 500;
-}
+.cal-title-group h2 svg { color: #94A3B8; cursor: pointer; transition: color 0.2s; }
+.cal-title-group h2 svg:hover { color: #0E61F3; }
+.cal-title-group p { margin: 0; font-size: 0.95rem; color: #64748B; font-weight: 400; }
 .cal-header-right {
   display: flex; align-items: center; gap: 16px;
 }

@@ -6,7 +6,7 @@ import {
   CheckCircle2, Menu, TrendingUp, CalendarRange, CalendarCheck,
   Clock, Workflow, Spline, Store, CreditCard, Shield, HelpCircle,
   Sparkles, Link2, Video, Zap, BookOpen, MessageCircle, Keyboard, Check, X,
-  Copy, Rocket, Calendar, Trash2, LogOut, Loader2, Play, EyeOff, ExternalLink, Edit2, Code, Info, ArrowLeft
+  Copy, Rocket, Calendar, Trash2, LogOut, Loader2, Play, EyeOff, ExternalLink, Edit2, Code, Info, ArrowLeft, Globe
 } from 'lucide-react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useAuth } from '../lib/AuthContext';
@@ -76,14 +76,30 @@ const DEFAULT_WEEK = [
   { day: 'Sunday', on: false, start: '09:00', end: '17:00' },
 ];
 
-const TIMEZONES = [
-  'Pacific/Midway', 'America/Adak', 'America/Anchorage', 'America/Los_Angeles',
+const CURATED_TIMEZONES = [
+  'Pacific/Midway', 'Pacific/Honolulu', 'America/Anchorage', 'America/Los_Angeles',
   'America/Denver', 'America/Chicago', 'America/New_York', 'America/Halifax',
   'America/St_Johns', 'America/Argentina/Buenos_Aires', 'America/Sao_Paulo',
-  'Atlantic/Azores', 'Europe/London', 'Europe/Berlin', 'Europe/Athens',
-  'Europe/Moscow', 'Asia/Dubai', 'Asia/Kolkata', 'Asia/Dhaka', 'Asia/Bangkok',
-  'Asia/Hong_Kong', 'Asia/Tokyo', 'Australia/Sydney', 'Pacific/Auckland'
+  'Atlantic/Azores', 'Europe/London', 'Europe/Berlin', 'Europe/Helsinki',
+  'Europe/Istanbul', 'Europe/Moscow', 'Asia/Dubai', 'Asia/Kabul',
+  'Asia/Karachi', 'Asia/Kolkata', 'Asia/Kathmandu', 'Asia/Dhaka',
+  'Asia/Bangkok', 'Asia/Hong_Kong', 'Asia/Tokyo', 'Australia/Perth',
+  'Australia/Adelaide', 'Australia/Sydney', 'Pacific/Noumea', 'Pacific/Auckland'
 ];
+
+const TIMEZONES = CURATED_TIMEZONES.map((tz: string) => {
+  try {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz,
+      timeZoneName: 'shortOffset'
+    }).formatToParts(new Date());
+    const offsetPart = parts.find(p => p.type === 'timeZoneName');
+    const offsetStr = offsetPart ? offsetPart.value : '';
+    return { id: tz, label: `${tz.replace(/_/g, ' ')} ${offsetStr}` };
+  } catch(e) {
+    return { id: tz, label: tz.replace(/_/g, ' ') };
+  }
+});
 
 const WORKFLOWS = [
   { nm: 'Booking reminder', fl: 'When booking is created → Send email 24h before', runs: '1,204 runs', on: true },
@@ -233,6 +249,8 @@ export default function CrmDashboard() {
   // Availability State
   const [availSchedule, setAvailSchedule] = useState(DEFAULT_WEEK);
   const [availPrefs, setAvailPrefs] = useState({ tz: 'America/New_York', notice: '4 hours', buffer: '15 minutes' });
+  const [tzOpen, setTzOpen] = useState(false);
+  const [tzSearch, setTzSearch] = useState('');
   const saveAvailability = () => {
     setToast('Availability saved!');
     window.setTimeout(() => setToast(null), 2000);
@@ -580,7 +598,7 @@ export default function CrmDashboard() {
                     <button className="crm-btn crm-btn-primary" onClick={() => { setCForm(blankContact); setContactErr(''); setShowContactForm(true); }}><Plus size={15} /> Add lead</button>
                   </div>
                 )}
-                {view === 'eventTypes' && <button className="crm-btn crm-btn-primary"><Plus size={15} /> New event type</button>}
+                {view === 'eventTypes' && etTab === 'eventTypes' && <button className="crm-btn crm-btn-primary"><Plus size={15} /> New event type</button>}
                 {view === 'workflows' && <button className="crm-btn crm-btn-primary"><Plus size={15} /> New workflow</button>}
               </div>
             )}
@@ -930,18 +948,46 @@ export default function CrmDashboard() {
                       <div>
                         <div className="cal-side-section">
                           <label className="cal-side-label">Timezone</label>
-                          <select 
-                            className="cal-select"
-                            value={availPrefs.tz}
-                            onChange={(e) => setAvailPrefs({ ...availPrefs, tz: e.target.value })}
-                          >
-                            {TIMEZONES.map(tz => <option key={tz} value={tz}>{tz}</option>)}
-                          </select>
-                        </div>
-                        
-                        <div className="cal-trouble-card">
-                          <h4>Something doesn't look right?</h4>
-                          <button className="cal-btn-trouble">Launch troubleshooter</button>
+                          <div style={{ position: 'relative' }}>
+                            <input 
+                              type="text"
+                              className="cal-select" 
+                              style={{ paddingLeft: '36px', width: '100%' }}
+                              value={tzOpen ? tzSearch : TIMEZONES.find((t: any) => t.id === availPrefs.tz)?.label || availPrefs.tz}
+                              onClick={() => { setTzOpen(true); setTzSearch(''); }}
+                              onChange={(e) => {
+                                setTzSearch(e.target.value);
+                                if (!tzOpen) setTzOpen(true);
+                              }}
+                              onBlur={() => setTimeout(() => setTzOpen(false), 200)}
+                            />
+                            <Globe size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748B', pointerEvents: 'none' }} />
+                            
+                            {tzOpen && (
+                              <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: '#fff', border: '1px solid #E2E8F0', borderRadius: '8px', marginTop: '4px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', zIndex: 10, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{ maxHeight: '240px', overflowY: 'auto' }}>
+                                  {TIMEZONES.filter((tz: any) => tz.label.toLowerCase().includes(tzSearch.toLowerCase())).map((tz: any) => (
+                                    <div 
+                                      key={tz.id} 
+                                      style={{ padding: '8px 12px', fontSize: '0.85rem', color: '#0F172A', cursor: 'pointer', background: availPrefs.tz === tz.id ? '#F8FAFC' : 'transparent', fontWeight: availPrefs.tz === tz.id ? 600 : 400 }}
+                                      onClick={() => {
+                                        setAvailPrefs({ ...availPrefs, tz: tz.id });
+                                        setTzOpen(false);
+                                        setTzSearch('');
+                                      }}
+                                      onMouseEnter={(e) => e.currentTarget.style.background = '#F1F5F9'}
+                                      onMouseLeave={(e) => e.currentTarget.style.background = availPrefs.tz === tz.id ? '#F8FAFC' : 'transparent'}
+                                    >
+                                      {tz.label}
+                                    </div>
+                                  ))}
+                                  {TIMEZONES.filter((tz: any) => tz.label.toLowerCase().includes(tzSearch.toLowerCase())).length === 0 && (
+                                    <div style={{ padding: '12px', fontSize: '0.85rem', color: '#64748B', textAlign: 'center' }}>No timezones found</div>
+                                  )}
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
