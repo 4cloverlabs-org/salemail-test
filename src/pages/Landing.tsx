@@ -118,7 +118,7 @@ export default function Landing() {
       <nav className="lexaro-nav" style={{ position: 'sticky', top: 0, zIndex: 100, background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)' }}>
         <div className="lexaro-container">
           <div className="lexaro-logo">
-            <div style={{ width: '10px', height: '10px', background: '#111', transform: 'rotate(45deg)', borderRadius: '1px', marginRight: '2px' }} />
+            <img src="/logo.png" alt="SaleMail" style={{ width: '26px', height: '26px', objectFit: 'contain', borderRadius: '5px', marginRight: '6px' }} />
             SaleMail
           </div>
           <div className="lexaro-nav-links">
@@ -1166,7 +1166,7 @@ export default function Landing() {
           <div className="lexaro-footer-grid">
             <div className="lexaro-footer-col">
               <div className="lexaro-footer-logo">
-                <div style={{ width: '10px', height: '10px', background: '#fff', transform: 'rotate(45deg)', borderRadius: '1px', marginRight: '2px' }} />
+                <img src="/logo.png" alt="SaleMail" style={{ width: '26px', height: '26px', objectFit: 'contain', borderRadius: '5px', marginRight: '6px' }} />
                 SaleMail
               </div>
               <p style={{ color: '#888', fontSize: '0.95rem', lineHeight: 1.6, maxWidth: '240px' }}>

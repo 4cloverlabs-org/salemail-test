@@ -26,7 +26,7 @@
 
   background: var(--lx-bg);
   color: var(--lx-text);
-  font-family: Geist, "Geist Placeholder", sans-serif;
+  font-family: "Geist Sans", "Geist Placeholder", sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   /* clip (not hidden) so it doesn't create a scroll container that breaks position: sticky */
@@ -232,7 +232,7 @@
   background: #fff;
 }
 .lexaro-hero-title {
-  font-family: Geist, "Geist Placeholder", sans-serif;
+  font-family: "Geist Sans", "Geist Placeholder", sans-serif;
   font-style: normal;
   font-weight: 400;
   color: rgb(25, 25, 25);

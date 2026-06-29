@@ -120,21 +120,21 @@ const WORKFLOWS = [
 ];
 
 const APPS = [
-  { nm: 'Google Meet', cat: 'Conferencing', ds: 'Auto-add Meet links to bookings.', c: ACCENT, ltr: 'G' },
-  { nm: 'Zoom', cat: 'Conferencing', ds: 'Host meetings over Zoom.', c: ACCENT, ltr: 'Z' },
-  { nm: 'Stripe', cat: 'Payments', ds: 'Collect payments at booking.', c: ACCENT, ltr: 'S' },
-  { nm: 'Slack', cat: 'Messaging', ds: 'Get notified in your channels.', c: ACCENT, ltr: 'S' },
-  { nm: 'Zapier', cat: 'Automation', ds: 'Connect 5,000+ apps.', c: ACCENT, ltr: 'Z' },
-  { nm: 'Salesforce', cat: 'CRM', ds: 'Sync contacts and deals.', c: ACCENT, ltr: 'S' },
-  { nm: 'HubSpot', cat: 'CRM', ds: 'Two-way contact sync.', c: ACCENT, ltr: 'H' },
-  { nm: 'Google Calendar', cat: 'Calendar', ds: 'Check for conflicts in real time.', c: ACCENT, ltr: 'G' },
+  { nm: 'Google Meet', cat: 'Conferencing', ds: 'Auto-add Meet links to bookings.', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon_%282020%29.svg' },
+  { nm: 'Zoom', cat: 'Conferencing', ds: 'Host meetings over Zoom.', logo: 'https://cdn.worldvectorlogo.com/logos/zoom-app.svg' },
+  { nm: 'Stripe', cat: 'Payments', ds: 'Collect payments at booking.', logo: 'https://cdn.worldvectorlogo.com/logos/stripe-4.svg' },
+  { nm: 'Slack', cat: 'Messaging', ds: 'Get notified in your channels.', logo: 'https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg' },
+  { nm: 'Zapier', cat: 'Automation', ds: 'Connect 5,000+ apps.', logo: 'https://cdn.worldvectorlogo.com/logos/zapier-1.svg' },
+  { nm: 'Salesforce', cat: 'CRM', ds: 'Sync contacts and deals.', logo: 'https://cdn.worldvectorlogo.com/logos/salesforce-2.svg' },
+  { nm: 'HubSpot', cat: 'CRM', ds: 'Two-way contact sync.', logo: 'https://cdn.worldvectorlogo.com/logos/hubspot-1.svg' },
+  { nm: 'Google Calendar', cat: 'Calendar', ds: 'Check for conflicts in real time.', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg' },
 ];
 
 const INSTALLED = [
-  { nm: 'Google Calendar', cat: 'Calendar', c: ACCENT, ltr: 'G' },
-  { nm: 'Google Meet', cat: 'Conferencing', c: ACCENT, ltr: 'G' },
-  { nm: 'Stripe', cat: 'Payments', c: ACCENT, ltr: 'S' },
-  { nm: 'Slack', cat: 'Messaging', c: ACCENT, ltr: 'S' },
+  { nm: 'Google Calendar', cat: 'Calendar', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg' },
+  { nm: 'Google Meet', cat: 'Conferencing', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Google_Meet_icon_%282020%29.svg' },
+  { nm: 'Stripe', cat: 'Payments', logo: 'https://cdn.worldvectorlogo.com/logos/stripe-4.svg' },
+  { nm: 'Slack', cat: 'Messaging', logo: 'https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg' },
 ];
 
 const TRANSACTIONS = [
@@ -501,9 +501,10 @@ export default function CrmDashboard() {
         {notifOpen && <div className="crm-notif-backdrop" onClick={() => setNotifOpen(false)} />}
 
         {/* ============ SIDEBAR ============ */}
+        {!editingEvent && (
         <aside className={`crm-side${sideOpen ? ' open' : ''}`}>
           <div className="crm-brand" style={{ color: '#111' }}>
-            <div style={{ width: '10px', height: '10px', background: '#111', transform: 'rotate(45deg)', borderRadius: '1px' }} />
+            <img src="/logo.png" alt="SaleMail" style={{ width: '24px', height: '24px', objectFit: 'contain', borderRadius: '4px' }} />
             <span>SaleMail</span>
           </div>
 
@@ -555,6 +556,7 @@ export default function CrmDashboard() {
             </div>
           </div>
         </aside>
+        )}
 
         {/* ============ MAIN ============ */}
       {editingEvent ? (
@@ -1288,7 +1290,7 @@ export default function CrmDashboard() {
                     <div className="crm-app-grid">
                       {filteredApps.map(a => (
                         <div className="crm-app-card" key={a.nm}>
-                          <span className="crm-app-ic" style={{ background: a.c }}>{a.ltr}</span>
+                          <img src={a.logo} alt={a.nm} className="crm-app-ic" style={{ background: 'transparent', objectFit: 'contain' }} />
                           <div><h4>{a.nm}</h4><span className="cat">{a.cat}</span></div>
                           <p className="ds">{a.ds}</p>
                           <button className="crm-btn crm-btn-ghost" style={{ width: '100%' }}><Plus size={14} /> Install</button>
@@ -1301,7 +1303,7 @@ export default function CrmDashboard() {
                     <div className="crm-card-head"><h3>Connected <span style={{ color: '#9b9bab', fontWeight: 500 }}>({INSTALLED.length})</span></h3></div>
                     {INSTALLED.map(a => (
                       <div className="crm-task" key={a.nm} style={{ padding: '14px 0' }}>
-                        <span className="crm-app-ic" style={{ background: a.c, width: 34, height: 34, fontSize: '0.85rem' }}>{a.ltr}</span>
+                        <img src={a.logo} alt={a.nm} className="crm-app-ic" style={{ width: 34, height: 34, background: 'transparent', objectFit: 'contain' }} />
                         <div><div style={{ fontSize: '0.88rem', fontWeight: 500 }}>{a.nm}</div><div style={{ fontSize: '0.76rem', color: '#9b9bab' }}>{a.cat}</div></div>
                         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 12 }}>
                           <span className="crm-tag green">Connected</span>

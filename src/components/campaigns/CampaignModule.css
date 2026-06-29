@@ -26,7 +26,7 @@
 
 /* Base Module Layout */
 .camp-module-wrap {
-  font-family: Geist, "Geist Placeholder", sans-serif;
+  font-family: "Geist Sans", "Geist Placeholder", sans-serif;
   color: var(--camp-text);
   background: #fcfcfd;
   min-height: calc(100vh - 80px);

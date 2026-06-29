@@ -105,7 +105,7 @@ export default function VisitorHome() {
   ];
 
   return (
-    <div style={{ backgroundColor: 'hsl(var(--bg-primary))', minHeight: '100vh', fontFamily: 'Inter, sans-serif', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ backgroundColor: 'hsl(var(--bg-primary))', minHeight: '100vh', fontFamily: '"Geist Sans", "Geist Placeholder", sans-serif', position: 'relative', overflow: 'hidden' }}>
 
       {/* ---------------------------------------------------- */}
       {/* Premium SaaS Navbar                                  */}
@@ -121,7 +121,7 @@ export default function VisitorHome() {
             }}>
               S
             </div>
-            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em' }}>
+            <span style={{ fontFamily: '"Geist Sans", "Geist Placeholder", sans-serif', fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em' }}>
               SaleMail
             </span>
           </div>
@@ -301,7 +301,7 @@ export default function VisitorHome() {
             Trusted by modern teams
           </span>
           {['Northwind', 'Acme Co', 'Lumio', 'Vertex', 'Brightlane'].map(name => (
-            <span key={name} style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.05rem', color: 'hsl(var(--text-secondary))', letterSpacing: '-0.02em' }}>
+            <span key={name} style={{ fontFamily: '"Geist Sans", "Geist Placeholder", sans-serif', fontWeight: 700, fontSize: '1.05rem', color: 'hsl(var(--text-secondary))', letterSpacing: '-0.02em' }}>
               {name}
             </span>
           ))}
@@ -345,7 +345,7 @@ export default function VisitorHome() {
                 ].map(c => (
                   <div key={c.z} style={{ flex: '1 1 0', minWidth: '70px', textAlign: 'center', padding: '12px 8px', borderRadius: '12px', background: 'hsl(var(--bg-tertiary))', border: '1px solid hsl(var(--border-color))' }}>
                     <div style={{ fontSize: '0.7rem', color: 'hsl(var(--text-muted))', fontWeight: 600, letterSpacing: '0.05em' }}>{c.z}</div>
-                    <div style={{ fontSize: '1.05rem', fontWeight: 700, fontFamily: 'Space Grotesk, sans-serif' }}>{c.t}</div>
+                    <div style={{ fontSize: '1.05rem', fontWeight: 700, fontFamily: '"Geist Sans", "Geist Placeholder", sans-serif' }}>{c.t}</div>
                   </div>
                 ))}
               </div>
@@ -469,7 +469,7 @@ export default function VisitorHome() {
             <div className="pricing-card">
               <div>
                 <h4 style={{ fontSize: '1.15rem', color: 'hsl(var(--text-secondary))', fontWeight: 500, marginBottom: '8px' }}>Free Starter</h4>
-                <div style={{ fontSize: '2.4rem', fontWeight: 700, color: 'hsl(var(--text-primary))', marginBottom: '12px', fontFamily: 'Space Grotesk, sans-serif' }}>
+                <div style={{ fontSize: '2.4rem', fontWeight: 700, color: 'hsl(var(--text-primary))', marginBottom: '12px', fontFamily: '"Geist Sans", "Geist Placeholder", sans-serif' }}>
                   $0 <span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'hsl(var(--text-secondary))' }}>/ month</span>
                 </div>
                 <p style={{ color: 'hsl(var(--text-secondary))', fontSize: '0.82rem', lineHeight: 1.45, marginBottom: '24px', fontWeight: 300 }}>
@@ -493,7 +493,7 @@ export default function VisitorHome() {
               <span className="pricing-badge">Popular</span>
               <div style={{ position: 'relative', zIndex: 1 }}>
                 <h4 style={{ fontSize: '1.15rem', color: 'hsl(var(--accent-primary))', fontWeight: 650, marginBottom: '8px' }}>Pro Synced</h4>
-                <div style={{ fontSize: '2.4rem', fontWeight: 700, color: 'hsl(var(--text-primary))', marginBottom: '12px', fontFamily: 'Space Grotesk, sans-serif' }}>
+                <div style={{ fontSize: '2.4rem', fontWeight: 700, color: 'hsl(var(--text-primary))', marginBottom: '12px', fontFamily: '"Geist Sans", "Geist Placeholder", sans-serif' }}>
                   $12 <span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'hsl(var(--text-secondary))' }}>/ month</span>
                 </div>
                 <p style={{ color: 'hsl(var(--text-secondary))', fontSize: '0.82rem', lineHeight: 1.45, marginBottom: '24px', fontWeight: 300 }}>

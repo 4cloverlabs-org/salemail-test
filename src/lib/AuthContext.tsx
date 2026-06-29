@@ -10,7 +10,7 @@ interface AuthContextValue {
   configured: boolean;
   signUp: (name: string, email: string, password: string) => Promise<void>;
   logIn: (email: string, password: string) => Promise<void>;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: (idToken: string) => Promise<void>;
   logOut: () => Promise<void>;
 }
 
@@ -90,20 +90,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (data.user) setUser(data.user);
   };
 
-  const signInWithGoogle = async () => {
-    // For Supabase, Google OAuth requires setting up the provider in the Supabase Dashboard.
-    const { error } = await supabase.auth.signInWithOAuth({
+  const signInWithGoogle = async (idToken: string) => {
+    const { error, data } = await supabase.auth.signInWithIdToken({
       provider: 'google',
-      options: {
-        scopes: 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/gmail.send',
-        redirectTo: window.location.origin + '/dashboard',
-        queryParams: {
-          access_type: 'offline',
-          prompt: 'consent'
-        }
-      }
+      token: idToken,
     });
     if (error) throw error;
+    if (data.user) setUser(data.user);
   };
 
   const logOut = async () => {

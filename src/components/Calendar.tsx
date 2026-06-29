@@ -129,7 +129,7 @@ export default function Calendar({
         >
           <ChevronLeft size={16} />
         </button>
-        <span style={{ fontFamily: 'Space Grotesk', fontWeight: 600, fontSize: '0.95rem' }}>
+        <span style={{ fontFamily: '"Geist Sans", "Geist Placeholder", sans-serif', fontWeight: 600, fontSize: '0.95rem' }}>
           {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
         </span>
         <button

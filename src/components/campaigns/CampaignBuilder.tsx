@@ -5,6 +5,8 @@ import { campaignEngine, type Campaign, type CampaignStep } from './campaignEngi
 import { EmailBlock } from './EmailBlock';
 import { DelayBlock } from './DelayBlock';
 import { AICampaignStudio } from './AICampaignStudio';
+import { useAuth } from '../../lib/AuthContext';
+import { API_BASE_URL } from '../../lib/config';
 
 interface CampaignBuilderProps {
   userEmail: string;
@@ -12,6 +14,7 @@ interface CampaignBuilderProps {
 }
 
 export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ userEmail, campaignId }) => {
+  const { user } = useAuth();
   const [campaigns, setCampaigns] = useState<Campaign[]>(campaignEngine.getCampaigns());
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
@@ -138,6 +141,32 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ userEmail, cam
             <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#16a34a', background: '#dcfce7', padding: '6px 12px', borderRadius: '9999px', display: 'flex', alignItems: 'center', gap: '4px' }}>
               <CheckCircle2 size={14} /> {toastMsg}
             </span>
+          )}
+
+          {!(campaignEngine.getSettings().gmailAccessToken || localStorage.getItem('sm_gmail_token')) ? (
+            <button
+              onClick={() => {
+                if (user?.id) {
+                  window.location.href = `${API_BASE_URL}/auth/google?uid=${user.id}`;
+                }
+              }}
+              className="camp-btn camp-btn-primary"
+              style={{ fontSize: '0.82rem', padding: '8px 16px', background: '#0E61F3', fontWeight: 600 }}
+            >
+              🔗 Connect Gmail
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                if (user?.id) {
+                  window.location.href = `${API_BASE_URL}/auth/google?uid=${user.id}`;
+                }
+              }}
+              className="camp-btn"
+              style={{ fontSize: '0.82rem', padding: '8px 16px', background: '#e2e8f0', color: '#334155', border: 'none', fontWeight: 600 }}
+            >
+              🔄 Reconnect Gmail
+            </button>
           )}
 
           <button onClick={handleSaveDraft} className="camp-btn camp-btn-ghost" style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.08)', color: '#0f172a', fontWeight: 600, padding: '8px 16px' }}>

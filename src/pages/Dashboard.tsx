@@ -374,7 +374,7 @@ export default function Dashboard() {
       gridTemplateColumns: '260px 1fr', 
       minHeight: 'calc(100vh - 70px)', 
       backgroundColor: 'hsl(var(--bg-primary))',
-      fontFamily: 'Inter, sans-serif'
+      fontFamily: '"Geist Sans", "Geist Placeholder", sans-serif'
     }}>
       
       {/* ---------------------------------------------------- */}
