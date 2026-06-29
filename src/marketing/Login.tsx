@@ -39,10 +39,9 @@ export default function Login() {
     setBusy(true);
     try {
       await signInWithGoogle();
-      navigate(from, { replace: true });
+      // Do not navigate or setBusy(false) here, as the browser will redirect to Google
     } catch (e) {
       setErr(authErrorMessage(e));
-    } finally {
       setBusy(false);
     }
   };

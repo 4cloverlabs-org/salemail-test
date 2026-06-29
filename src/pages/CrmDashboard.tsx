@@ -275,6 +275,15 @@ export default function CrmDashboard() {
         setGoogleConnected(true);
         return;
       }
+      
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('google_connected') === 'true') {
+        setGoogleConnected(true);
+        // Clean up URL so refresh doesn't keep it
+        window.history.replaceState({}, '', window.location.pathname);
+        return;
+      }
+      
       if (uid && uid !== 'anon') {
         try {
           const { data } = await supabase.from('users').select('google_tokens').eq('id', uid).single();

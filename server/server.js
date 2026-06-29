@@ -22,6 +22,11 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '100kb' }));
 
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.send('SaleMail API Server is running');
+});
+
 // Strip CR/LF to prevent email header injection; collapse to a single line.
 const sanitizeHeader = (s) => String(s == null ? '' : s).replace(/[\r\n]+/g, ' ').trim();
 // Escape values that get interpolated into HTML email bodies (prevents injection).
@@ -90,6 +95,7 @@ const makeBody = (to, from, subject, message) => {
 // 1. Google OAuth Flow
 // ----------------------------------------------------
 app.get('/auth/google', (req, res) => {
+  console.log("GET /auth/google hit with query:", req.query);
   const { uid } = req.query; // SaleMail user ID
   if (!uid) return res.status(400).send("User ID required");
 
@@ -103,15 +109,21 @@ app.get('/auth/google', (req, res) => {
     ],
     state: uid // pass the UID so we know who to save it to in the callback
   });
+  console.log("Redirecting user to Google OAuth URL:", url);
   res.redirect(url);
 });
 
 app.get('/auth/google/callback', async (req, res) => {
+  console.log("OAuth Callback Hit with query:", req.query);
   const { code, state: uid } = req.query;
-  if (!code || !uid) return res.status(400).send("Invalid callback");
+  if (!code || !uid) {
+    console.log("Missing code or uid in callback");
+    return res.status(400).send("Invalid callback");
+  }
 
   try {
     const { tokens } = await oauth2Client.getToken(code);
+    console.log("Tokens received from Google for uid:", uid);
     
     // Save tokens securely in Supabase
     if (supabase) {
@@ -123,14 +135,21 @@ app.get('/auth/google/callback', async (req, res) => {
         }
       }).eq('id', uid);
       
-      if (error) console.error("Error saving tokens:", error);
+      if (error) {
+        console.error("Error saving tokens to Supabase:", error);
+      } else {
+        console.log("Successfully saved tokens to Supabase for uid:", uid);
+      }
+    } else {
+      console.log("Supabase client not initialized, cannot save tokens.");
     }
 
     // Redirect back to CRM Dashboard
+    console.log("Redirecting to dashboard...");
     res.redirect('http://localhost:5173/dashboard?google_connected=true');
   } catch (error) {
-    console.error("Auth Error:", error);
-    res.status(500).send("Authentication failed");
+    console.error("Auth Error in callback:", error);
+    res.status(500).send("Authentication failed: " + error.message);
   }
 });
 

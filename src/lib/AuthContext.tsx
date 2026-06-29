@@ -99,6 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         redirectTo: window.location.origin + '/dashboard',
         queryParams: {
           access_type: 'offline',
+          prompt: 'consent'
         }
       }
     });
