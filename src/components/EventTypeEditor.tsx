@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
-  ArrowLeft, Video, Link2, Clock, Settings, Calendar, CreditCard, LayoutTemplate, Layers, Zap, Webhook,
-  Check, Eye, RefreshCw, X, ShieldCheck, Grid, ExternalLink, Code, Trash2, Bold, Italic, Type, Edit2, Save, Link as LinkIcon, List, ListOrdered, Globe, ChevronDown, Mail
+  ArrowLeft, Video, Link2, Clock, Settings, Calendar, CreditCard, LayoutTemplate,
+  Check, Eye, ShieldCheck, ExternalLink, Bold, Italic, Edit2, Save, Link as LinkIcon, List, ListOrdered, Globe, ChevronDown, Mail
 } from 'lucide-react';
 import { addEventType, updateEventType, type EventType } from '../lib/crm'; 
 

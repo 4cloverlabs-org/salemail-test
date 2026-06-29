@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
-  Shield, Clock, Mail, Check, Zap, BarChart2, Eye, Link as LinkIcon, MessageSquare, Edit2, Lightbulb, 
-  RefreshCw, Save, Bold, Italic, Underline, Link2, List, ListOrdered, AlignLeft, AlignCenter, Code, ChevronDown, Info, ArrowRight 
+  Shield, Clock, Mail, Check, BarChart2, Eye, Link as LinkIcon, MessageSquare, Edit2, Lightbulb, 
+  RefreshCw, Bold, Italic, Underline, Link2, List, ListOrdered, AlignLeft, AlignCenter, Code, ChevronDown, Info, ArrowRight 
 } from 'lucide-react';
 import { campaignEngine, type CampaignSettingsData } from './campaignEngine';
 import { useAuth } from '../../lib/AuthContext';
