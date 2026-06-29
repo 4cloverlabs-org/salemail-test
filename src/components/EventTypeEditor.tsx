@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowLeft, Video, Link2, Globe, Clock, Settings, Calendar, CreditCard, LayoutTemplate, Layers, Zap, Webhook } from 'lucide-react';
 import { addEventType, updateEventType, type EventType } from '../lib/crm';
 

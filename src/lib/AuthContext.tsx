@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 import { type User } from '@supabase/supabase-js';
 import { supabase } from './supabase';
 import { setGmailToken, markGmailConnected, clearGmail } from './gmailToken';
-import { campaignEngine } from '../components/campaigns/campaignEngine';
+// import { campaignEngine } from '../components/campaigns/campaignEngine';
 
 interface AuthContextValue {
   user: User | null;

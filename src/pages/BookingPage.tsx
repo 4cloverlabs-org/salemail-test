@@ -3,15 +3,15 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { API_BASE_URL } from '../lib/config';
 import { Calendar as CalendarIcon, Video, Loader2, ChevronLeft, ChevronRight, Clock, Globe } from 'lucide-react';
-import { type EventType, addContact } from '../lib/crm';
+import { type EventType } from '../lib/crm';
 import '../pages/CrmDashboard.css';
 
 // Unique Google-Meet-style code generator for mock
-function genMeetCode() {
-  const a = 'abcdefghijklmnopqrstuvwxyz';
-  const pick = (n: number) => Array.from({ length: n }, () => a[Math.floor(Math.random() * a.length)]).join('');
-  return `${pick(3)}-${pick(4)}-${pick(3)}`;
-}
+// function genMeetCode() {
+//   const a = 'abcdefghijklmnopqrstuvwxyz';
+//   const pick = (n: number) => Array.from({ length: n }, () => a[Math.floor(Math.random() * a.length)]).join('');
+//   return `${pick(3)}-${pick(4)}-${pick(3)}`;
+// }
 
 const TIMES = ['09:00am', '09:30am', '10:00am', '10:30am', '11:00am', '01:00pm', '01:30pm', '02:00pm', '02:30pm', '03:00pm'];
 
@@ -53,7 +53,7 @@ export default function BookingPage() {
   
   const [bookingStatus, setBookingStatus] = useState<'idle' | 'booking' | 'success'>('idle');
   const [isEmbedded, setIsEmbedded] = useState(false);
-  const [ownerHasGoogle, setOwnerHasGoogle] = useState(false);
+  // const [ownerHasGoogle, setOwnerHasGoogle] = useState(false);
   const [meetLink, setMeetLink] = useState('');
 
   const searchParams = new URLSearchParams(window.location.search);
@@ -91,7 +91,7 @@ export default function BookingPage() {
         const uData = await res.json();
         
         setHostName(uData.firstName || 'SaleMail User');
-        setOwnerHasGoogle(uData.hasGoogle);
+        // setOwnerHasGoogle(uData.hasGoogle);
 
         const { data: etData, error: etError } = await supabase.from('event_types')
           .select('*')

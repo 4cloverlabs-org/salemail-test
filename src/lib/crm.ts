@@ -46,12 +46,12 @@ export async function deleteContact(uid: string, id: string): Promise<void> {
 // ---- Deals ----
 // (Not added to SQL schema yet, using local dummy for now or we can map to a new table. 
 //  Since Deals wasn't in the schema, we'll return empty array to prevent crashing until they add it)
-export async function listDeals(uid: string): Promise<Deal[]> {
+export async function listDeals(_uid: string): Promise<Deal[]> {
   return [];
 }
-export async function addDeal(uid: string, data: Omit<Deal, 'id' | 'createdAt'>): Promise<void> {}
-export async function updateDeal(uid: string, id: string, data: Partial<Omit<Deal, 'id'>>): Promise<void> {}
-export async function deleteDeal(uid: string, id: string): Promise<void> {}
+export async function addDeal(_uid: string, _data: Omit<Deal, 'id' | 'createdAt'>): Promise<void> {}
+export async function updateDeal(_uid: string, _id: string, _data: Partial<Omit<Deal, 'id'>>): Promise<void> {}
+export async function deleteDeal(_uid: string, _id: string): Promise<void> {}
 
 // ---- Event Types ----
 export interface EventType {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Shield, Clock, Sliders, Mail, Check } from 'lucide-react';
 import { campaignEngine, type CampaignSettingsData } from './campaignEngine';
 import { useAuth } from '../../lib/AuthContext';
-import { isGmailConnected, getGmailToken, getGmailEmail } from '../../lib/gmailToken';
+// import { isGmailConnected, getGmailToken, getGmailEmail } from '../../lib/gmailToken';
 
 export const CampaignSettings: React.FC = () => {
   const { signInWithGoogle, user } = useAuth();

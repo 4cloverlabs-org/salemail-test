@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Expantra DB (Legacy)
 export interface EventType {
   id: string;

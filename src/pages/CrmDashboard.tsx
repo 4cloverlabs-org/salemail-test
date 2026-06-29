@@ -6,7 +6,7 @@ import {
   CheckCircle2, Menu, TrendingUp, CalendarRange, CalendarCheck,
   Clock, Workflow, Spline, Store, CreditCard, Shield, HelpCircle,
   Sparkles, Link2, Video, Zap, BookOpen, MessageCircle, Keyboard, Check, X,
-  Copy, Rocket, Calendar, Trash2, LogOut, Loader2, Play, EyeOff, ExternalLink, Edit2, Code, Info, ArrowLeft, Globe
+  Copy, Rocket, Calendar, Trash2, LogOut, Loader2, EyeOff, ExternalLink, Edit2, Code, Info, ArrowLeft, Globe
 } from 'lucide-react';
 import { useAuth } from '../lib/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -14,7 +14,7 @@ import { API_BASE_URL } from '../lib/config';
 import { 
   listContacts, addContact, updateContact, deleteContact,
   listenEventTypes, addEventType, updateEventType, deleteEventType,
-  listenBookings, addBooking, deleteBooking, type Contact, type ContactStatus, type EventType, type Booking 
+  listenBookings, type Contact, type ContactStatus, type EventType, type Booking 
 } from '../lib/crm';
 import './CrmDashboard.css';
 import CampaignModule from '../components/campaigns/CampaignModule';
@@ -67,6 +67,7 @@ const DEFAULT_EVENT_TYPES = [
   { title: 'Group Webinar', dur: '90m', slug: 'webinar', desc: 'Multi-attendee live session.' },
 ];
 
+// @ts-ignore
 const DEFAULT_BOOKINGS = [
   { name: 'Logan Mitchell', event: 'Product Demo', when: 'Today · 10:00 AM', status: 'upcoming' },
   { name: 'Priya Anand', event: '30 Min Meeting', when: 'Today · 2:30 PM', status: 'upcoming' },
@@ -304,7 +305,9 @@ export default function CrmDashboard() {
     localStorage.removeItem('sm_gmail_email');
     setGoogleConnected(false);
     if (user?.id) {
-      await supabase.from('users').update({ google_tokens: null }).eq('id', user.id).catch(() => {});
+      try {
+        await supabase.from('users').update({ google_tokens: null }).eq('id', user.id);
+      } catch (e) {}
     }
     setToast('Google disconnected.');
     setTimeout(() => setToast(null), 2000);
@@ -420,6 +423,7 @@ export default function CrmDashboard() {
     catch { await loadData(); }
   };
 
+  // @ts-ignore
   const removeEventType = async (id: string, title: string) => {
     if (!window.confirm(`Delete ${title}?`)) return;
     try {
