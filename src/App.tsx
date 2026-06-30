@@ -40,7 +40,6 @@ function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
-            <Route path="*" element={<NotFound />} />
           </Route>
 
           {/* ---- Auth ---- */}
@@ -50,15 +49,23 @@ function App() {
           {/* ---- App (requires a logged-in user) ---- */}
           <Route path="/dashboard" element={<RequireAuth><CrmDashboard /></RequireAuth>} />
 
+          {/* ---- Public Booking Page & Aliases ---- */}
+          <Route path="/book/:uid/:slug" element={<BookingPage />} />
+          <Route path="/booking/:uid/:slug" element={<BookingPage />} />
+          <Route path="/book/:slug" element={<BookingPage />} />
+          <Route path="/booking/:slug" element={<BookingPage />} />
+
           {/* ---- Legacy SaleMail app ---- */}
           <Route path="/schedule" element={<Layout><VisitorHome /></Layout>} />
-          <Route path="/book/:eventTypeId" element={<Layout><BookingFlow /></Layout>} />
+          <Route path="/book-legacy/:eventTypeId" element={<Layout><BookingFlow /></Layout>} />
           <Route path="/success" element={<Layout><SuccessPage /></Layout>} />
           <Route path="/admin" element={<Layout><Dashboard /></Layout>} />
           <Route path="/legacy" element={<Navigate to="/schedule" replace />} />
-          
-          {/* ---- Public Booking Page ---- */}
-          <Route path="/book/:uid/:slug" element={<BookingPage />} />
+
+          {/* ---- Fallback NotFound ---- */}
+          <Route element={<MarketingLayout />}>
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
